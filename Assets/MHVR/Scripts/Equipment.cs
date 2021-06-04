@@ -15,7 +15,7 @@ public class Equipment : MonoBehaviour
 
     private void LateStart()
     {
-        Transform headset = VRTK_SDKManager.loadedSetup.actualHeadset.transform.parent;
+        Transform headset = VRTK_SDKManager.loadedSetup.actualHeadset.transform;
         ConstraintSource sourceHeadset = new ConstraintSource
         {
             sourceTransform = headset,
