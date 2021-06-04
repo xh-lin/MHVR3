@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e3401ba288644ab1ea450b1f5c04b, type: 3}
+  m_Name: wp_bow_cmn
+  m_EditorClassIdentifier: 
+  name: wp_bow_cmn
+  description: Bow Physical SFX
+  audio:
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: c9ac3df80c9b6844b9f9dd8cdc53529c, type: 3}
+    description: string pull [1/2]
+  - clip: {fileID: 8300000, guid: 8a6fef1867bec7e409144014dc42970f, type: 3}
+    description: remove coating
+  - clip: {fileID: 8300000, guid: fc9e6d9676acfcf43a31935d52c09c39, type: 3}
+    description: grab arrow from quiver [1/4]
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: 7ace4fb09f46b234bb0684c31b32739a, type: 3}
+    description: grab arrow from quiver [2/4]
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: df3c6c37d754f1b40aafa78d2b616e8d, type: 3}
+    description: 
+  - clip: {fileID: 8300000, guid: 96a770d0adaa58c4eb842f872964f60f, type: 3}
+    description: set arrow on bow [1/3]
+  - clip: {fileID: 8300000, guid: d87f751f106d06549b1c205ea7929bd6, type: 3}
+    description: set arrow on bow [2/3]
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: f280d3e1b49815d4fb0c91d1764322e0, type: 3}
+    description: grab arrow from quiver [3/4]
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: 93c8cdfc10431d74f951e6ce2618b2f7, type: 3}
+    description: string pull two
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: 578331b10802c3f45a2bf5b7484150fc, type: 3}
+    description: set arrow on bow [3/3]
+  - clip: {fileID: 8300000, guid: 2bfae3d4fcb8f0a4697807552e756d14, type: 3}
+    description: string pull max hold
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: 008236c335352704e94e956fd66f9897, type: 3}
+    description: string pull [2/2]
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: 586c7695667ee694fab838f19411518a, type: 3}
+    description: apply coating
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: 9346f303e5cc652489238f092a9c8b02, type: 3}
+    description: grab arrow from quiver [4/4]
+  - clip: {fileID: 0}
+    description: 

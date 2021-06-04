@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e3401ba288644ab1ea450b1f5c04b, type: 3}
+  m_Name: wp_bow_007
+  m_EditorClassIdentifier: 
+  name: wp_bow_007
+  description: Weapon SFX for bow007
+  audio:
+  - clip: {fileID: 0}
+    description: 
+  - clip: {fileID: 8300000, guid: 40b3d0b9c00ca1f4484fabc913dd9019, type: 3}
+    description: string stretch
+  - clip: {fileID: 8300000, guid: d63bda8bb9b5b514187a121ec08b4bd8, type: 3}
+    description: release [1/2]
+  - clip: {fileID: 8300000, guid: e4d527453822c9949815fced13aed24b, type: 3}
+    description: sheath
+  - clip: {fileID: 8300000, guid: c130e2061a72aa547bcd45c070437536, type: 3}
+    description: release [2/2]
+  - clip: {fileID: 8300000, guid: 50d831f8faf743247a64b89a4cdf9a08, type: 3}
+    description: fold
+  - clip: {fileID: 8300000, guid: 216e797e6c3415c409062022538254b6, type: 3}
+    description: open
