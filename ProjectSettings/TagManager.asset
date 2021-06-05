@@ -10,6 +10,7 @@ TagManager:
   - Target
   - Coating
   - Bow
+  - Teleport
   layers:
   - Default
   - TransparentFX
