@@ -15,6 +15,7 @@ public class BowAim : MonoBehaviour
     public float bowVibration = 0.062f;
     public float stringVibration = 0.087f;
     public GameObject arrowPrefab;
+    public GameObject snapHandle;   // for calculating bow aiming rotation
 
     // shake
     [Range(0f, 30f)]
@@ -59,7 +60,7 @@ public class BowAim : MonoBehaviour
     private float arrowSeedY;
     private float bowSeedX;
     private float bowSeedY;
-    private bool isShake;
+    private bool isShaking;
 
     [HideInInspector]
     public Bow bow;
@@ -82,7 +83,7 @@ public class BowAim : MonoBehaviour
         arrowSeedY = Random.value * 10f;
         bowSeedX = Random.value * 10f;
         bowSeedY = Random.value * 10f;
-        isShake = false;
+        isShaking = false;
     }
 
     private void Update()
@@ -112,7 +113,8 @@ public class BowAim : MonoBehaviour
                 fireOffset = Time.time;
             }
             if (releaseRotation != baseRotation)
-                transform.localRotation = Quaternion.Lerp(releaseRotation, baseRotation, (Time.time - fireOffset) * 8);
+                transform.localRotation = Quaternion.Lerp(releaseRotation, baseRotation, 
+                    (Time.time - fireOffset) * 8);
         }
 
         // drop bow while arrow loaded
@@ -176,7 +178,8 @@ public class BowAim : MonoBehaviour
 
         currentArrow.GetComponent<Rigidbody>().isKinematic = false;
         currentArrow.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
-        currentArrow.GetComponent<Rigidbody>().velocity = currentPull * powerMultiplier * currentArrow.transform.TransformDirection(Vector3.forward);
+        currentArrow.GetComponent<Rigidbody>().velocity = currentPull * powerMultiplier * 
+            currentArrow.transform.TransformDirection(Vector3.forward);
 
         currentArrow.GetComponent<Arrow>().InFlight();
         currentArrow.GetComponent<Arrow>().StopSound();
@@ -214,7 +217,7 @@ public class BowAim : MonoBehaviour
         chargePull = 0.0f;
         lerpVal = 0.0f;
         chargeLevel = 1;
-        isShake = false;
+        isShaking = false;
 
         ReleaseArrow();
 
@@ -225,7 +228,8 @@ public class BowAim : MonoBehaviour
 
     private void DuplicateArrow(Vector3 direction)
     {
-        GameObject newArrowNotch = Instantiate(arrowPrefab, currentArrow.transform.position, currentArrow.transform.rotation);
+        GameObject newArrowNotch = Instantiate(arrowPrefab, currentArrow.transform.position, 
+            currentArrow.transform.rotation);
         GameObject newArrow = newArrowNotch.GetComponent<ArrowNotch>().arrow;
         newArrowNotch.GetComponent<ArrowNotch>().CopyNotchToArrow();
 
@@ -241,7 +245,8 @@ public class BowAim : MonoBehaviour
 
         newArrow.GetComponent<Rigidbody>().isKinematic = false;
         newArrow.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
-        newArrow.GetComponent<Rigidbody>().velocity = currentPull * powerMultiplier * currentArrow.transform.TransformDirection(direction);
+        newArrow.GetComponent<Rigidbody>().velocity = currentPull * powerMultiplier * 
+            currentArrow.transform.TransformDirection(direction);
         newArrow.GetComponent<Arrow>().InFlight();
 
         if (coatingColor == Color.clear)
@@ -259,35 +264,42 @@ public class BowAim : MonoBehaviour
     private void AimArrow()
     {
         currentArrow.transform.localPosition = Vector3.zero;
-        if (isShake)
+        Vector3 lookDir = handle.nockSide.position;
+
+        if (isShaking)
         {
             var x = (Mathf.PerlinNoise(arrowSeedX, Time.time * shakeSpeed) - 0.5f) * shakeMultiplier;
             var y = (Mathf.PerlinNoise(arrowSeedY, Time.time * shakeSpeed) - 0.5f) * shakeMultiplier;
-            currentArrow.transform.LookAt(handle.nockSide.position + new Vector3(x, y, 0));
+            lookDir += new Vector3(x, y, 0);
         }
-        else
-        {
-            currentArrow.transform.LookAt(handle.nockSide.position);
-        }
+
+        currentArrow.transform.LookAt(lookDir);
     }
 
     private void AimBow()
     {
-        if (isShake)
+        Vector3 lookDir = holdControl.transform.position - stringControl.transform.position;
+        Vector3 upDir = holdControl.transform.TransformDirection(
+            Quaternion.Euler(-snapHandle.transform.localEulerAngles) * Vector3.up);
+
+        if (isShaking)
         {
             var x = (Mathf.PerlinNoise(bowSeedX, Time.time * shakeSpeed) - 0.5f) * shakeMultiplier;
             var y = (Mathf.PerlinNoise(bowSeedY, Time.time * shakeSpeed) - 0.5f) * shakeMultiplier;
-            transform.rotation = Quaternion.LookRotation(holdControl.transform.position - stringControl.transform.position + new Vector3(x, y, 0), holdControl.transform.TransformDirection(Vector3.forward));
+            lookDir += new Vector3(x, y, 0);
         }
-        else
-        {
-            transform.rotation = Quaternion.LookRotation(holdControl.transform.position - stringControl.transform.position, holdControl.transform.TransformDirection(Vector3.forward));
-        }   
+
+        transform.rotation = Quaternion.LookRotation(lookDir, upDir);
+
+        Debug.Log(holdControl.transform.position + ",  " + stringControl.transform.position);
     }
 
     private void PullString()
     {
-        currentPull = Mathf.Clamp((Vector3.Distance(holdControl.transform.position, stringControl.transform.position) - pullOffset) * pullMultiplier, 0, maxPullDistance);
+        currentPull = Mathf.Clamp(
+            (Vector3.Distance(holdControl.transform.position, stringControl.transform.position) - pullOffset) * pullMultiplier, 
+            0, 
+            maxPullDistance);
 
         // charge pull
         if (currentPull > chargeThreshold && currentPull > chargePull)
@@ -311,8 +323,12 @@ public class BowAim : MonoBehaviour
         // controller haptic
         if (currentPull.ToString("F2") != previousPull.ToString("F2"))
         {
-            VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(holdControl.gameObject), bowVibration);
-            VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(stringControl.gameObject), stringVibration);
+            VRTK_ControllerHaptics.TriggerHapticPulse(
+                VRTK_ControllerReference.GetControllerReference(holdControl.gameObject), 
+                bowVibration);
+            VRTK_ControllerHaptics.TriggerHapticPulse(
+                VRTK_ControllerReference.GetControllerReference(stringControl.gameObject), 
+                stringVibration);
         }
 
         // charge pull sound and glow
@@ -336,7 +352,7 @@ public class BowAim : MonoBehaviour
             chargeLevel = 3;
             bow.PlayPullSound(chargeLevel, 0.5f, 0.2f);
             bow.GlowPulse(1, 30, 5, true);
-            isShake = true;
+            isShaking = true;
         }
         else if (previousPull > chargeThreshold && currentPull <= chargeThreshold)
         {
@@ -344,7 +360,7 @@ public class BowAim : MonoBehaviour
             bow.StopSound(); // Stop pull hold sound loop
             bow.StopGlow();
             currentArrow.GetComponent<Arrow>().StopSound();
-            isShake = false;
+            isShaking = false;
         }
 
         previousPull = currentPull;
