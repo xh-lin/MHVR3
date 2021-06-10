@@ -10960,6 +10960,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quiver007
       objectReference: {fileID: 0}
+    - target: {fileID: 6961309535531136827, guid: 8294e3b8f92c5fa4396d8cb8556838b5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8294e3b8f92c5fa4396d8cb8556838b5, type: 3}
 --- !u!1001 &7049559907452353372

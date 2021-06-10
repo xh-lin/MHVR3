@@ -21,6 +21,8 @@ public class ArrowSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (GetComponent<AudioSource>() == null)
+            gameObject.AddComponent<AudioSource>();
         source = GetComponent<AudioSource>();
         outline.enabled = false;
         spawnDelayTimer = 0f;
@@ -28,12 +30,12 @@ public class ArrowSpawner : MonoBehaviour
         grabArrowSoundsIdx = 0;
 
         Collider spawnerCol = GetComponent<Collider>();
-        Collider[] quiverCols = transform.parent.gameObject.GetComponentsInChildren<Collider>();
-        foreach (var c in quiverCols)
-        {
-            if(spawnerCol != c)
-                Physics.IgnoreCollision(spawnerCol, c);
-        }
+        //Collider[] quiverCols = transform.parent.gameObject.GetComponentsInChildren<Collider>();
+        //foreach (var c in quiverCols)
+        //{
+        //    if(spawnerCol != c)
+        //        Physics.IgnoreCollision(spawnerCol, c);
+        //}
     }
 
     private void OnTriggerStay(Collider collider)
@@ -41,6 +43,7 @@ public class ArrowSpawner : MonoBehaviour
         VRTK_InteractGrab grabbingController = (collider.gameObject.GetComponent<VRTK_InteractGrab>() ? 
             collider.gameObject.GetComponent<VRTK_InteractGrab>() : 
             collider.gameObject.GetComponentInParent<VRTK_InteractGrab>());
+
         if (CanGrab(grabbingController) && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer)
         {
             GameObject newArrow = Instantiate(arrowPrefab);
@@ -54,14 +57,18 @@ public class ArrowSpawner : MonoBehaviour
 
         if(!outline.enabled && grabbingController && grabbingController.GetGrabbedObject() == null)
         {
-            source.PlayOneShot(bowPhysicalSFX.audio[10].clip, 0.3f);
             outline.enabled = true;
+            source.PlayOneShot(bowPhysicalSFX.audio[10].clip, 0.3f);
         }
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        if (outline.enabled)
+        VRTK_InteractGrab grabbingController = (collider.gameObject.GetComponent<VRTK_InteractGrab>() ?
+            collider.gameObject.GetComponent<VRTK_InteractGrab>() :
+            collider.gameObject.GetComponentInParent<VRTK_InteractGrab>());
+
+        if (grabbingController && outline.enabled)
             outline.enabled = false;
     }
 
