@@ -290,8 +290,6 @@ public class BowAim : MonoBehaviour
         }
 
         transform.rotation = Quaternion.LookRotation(lookDir, upDir);
-
-        Debug.Log(holdControl.transform.position + ",  " + stringControl.transform.position);
     }
 
     private void PullString()
