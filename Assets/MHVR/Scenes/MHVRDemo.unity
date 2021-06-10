@@ -1359,11 +1359,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7520115334899842570, guid: dd6b953687bde824d86bbe2910f49c67,
-        type: 3}
-      propertyPath: snapHandle
-      value: 
-      objectReference: {fileID: 1029455977}
     - target: {fileID: 7520115334899842581, guid: dd6b953687bde824d86bbe2910f49c67,
         type: 3}
       propertyPath: m_Enabled
@@ -3478,12 +3473,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3134806343763312635, guid: e5f17e8ec2b56ea49b4eeec4531f5429,
     type: 3}
   m_PrefabInstance: {fileID: 733256957}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1029455977 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1681171744543262366, guid: dd6b953687bde824d86bbe2910f49c67,
-    type: 3}
-  m_PrefabInstance: {fileID: 331411645}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1072836030 stripped
 GameObject:
