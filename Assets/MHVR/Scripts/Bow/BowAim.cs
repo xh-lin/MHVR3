@@ -38,6 +38,7 @@ public class BowAim : MonoBehaviour
     private Quaternion releaseRotation;
     private Quaternion baseRotation;
     private bool isFired;
+    private bool gotBaseRotation;
     private float fireOffset;
     private float currentPull;
     private float previousPull;
@@ -112,9 +113,10 @@ public class BowAim : MonoBehaviour
                 isFired = false;
                 fireOffset = Time.time;
             }
-            if (releaseRotation != baseRotation)
+            if (gotBaseRotation && transform.localRotation != baseRotation) {
                 transform.localRotation = Quaternion.Lerp(releaseRotation, baseRotation, 
                     (Time.time - fireOffset) * 8);
+            }
         }
 
         // drop bow while arrow loaded
@@ -160,6 +162,7 @@ public class BowAim : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         baseRotation = transform.localRotation;
+        gotBaseRotation = true;
     }
 
     private void Release()

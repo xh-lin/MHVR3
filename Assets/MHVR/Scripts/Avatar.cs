@@ -2,34 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using VRTK;
 
 public class Avatar : MonoBehaviour
 {
-    public VRTK.VRTK_SDKManager VRTK_SDKManager;
     public GameObject head;
+    public GameObject backpack;
+    [HideInInspector]
+    public GameObject equip;
+
+    private VRTK_SDKManager VRTK_SDKManager;
 
     private void Start()
     {
+        VRTK_SDKManager = FindObjectsOfType<VRTK_SDKManager>()[0];
         Invoke(nameof(LateStart), 0.1f);
     }
 
     private void LateStart()
     {
-        Transform rig = VRTK_SDKManager.loadedSetup.actualBoundaries.transform;
-        ConstraintSource sourceRig = new ConstraintSource
+        Transform headset = VRTK_SDKManager.loadedSetup.actualHeadset.transform;
+        ConstraintSource sourceHeadset = new ConstraintSource
         {
-            sourceTransform = rig,
+            sourceTransform = headset,
             weight = 1f
         };
-        GetComponent<ParentConstraint>().AddSource(sourceRig);
-
-        Transform neck = VRTK_SDKManager.loadedSetup.actualHeadset.transform.parent;
-        ConstraintSource sourceNeck = new ConstraintSource
-        {
-            sourceTransform = neck,
-            weight = 1f
-        };
-        head.GetComponent<RotationConstraint>().AddSource(sourceNeck);
+        head.GetComponent<ParentConstraint>().AddSource(sourceHeadset);
     }
-
 }

@@ -23,7 +23,7 @@ public class Bow : MonoBehaviour
     private int setArrowSoundsIdx;
     private int PullOneSoundsIdx;
 
-    private void Start()
+    private void Awake()
     {
         aim = GetComponent<BowAim>();
         source = GetComponent<AudioSource>();
@@ -31,10 +31,11 @@ public class Bow : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         bowRenderers = GetComponentsInChildren<Renderer>();
 
-        animator.enabled = true;
+        // set to folded animation
+        animator.enabled = true;    
         rigidBody.isKinematic = true;
-        Invoke(nameof(LateStart), .1f);
 
+        // initialize audio variables
         shotSounds = new int[] { 2, 4 };
         setArrowSounds = new int[] { 11, 12, 21 };
         PullOneSounds = new int[] { 3, 24 };
@@ -43,7 +44,7 @@ public class Bow : MonoBehaviour
         PullOneSoundsIdx = 0;
     }
 
-    private void LateStart()
+    private void Start()
     {
         animator.enabled = false;
         rigidBody.isKinematic = false;
