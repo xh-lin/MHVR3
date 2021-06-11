@@ -3773,8 +3773,8 @@ MonoBehaviour:
   autoManageVRSettings: 1
   autoLoadSetup: 1
   setups:
-  - {fileID: 211735056}
   - {fileID: 252599248}
+  - {fileID: 211735056}
   excludeTargetGroups: 1b0000001a000000
   persistOnLoad: 0
 --- !u!1 &1145517482
@@ -5478,6 +5478,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 692267609}
     m_Modifications:
+    - target: {fileID: 694746201520630436, guid: d0efa35534709484b938b53aabff8607,
+        type: 3}
+      propertyPath: m_TranslationAtRest.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 694746201520630438, guid: d0efa35534709484b938b53aabff8607,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1092906604126524384, guid: d0efa35534709484b938b53aabff8607,
         type: 3}
       propertyPath: m_IsActive
@@ -6881,7 +6891,6 @@ GameObject:
   - component: {fileID: 1811468770163272373}
   - component: {fileID: 1811468770163272371}
   - component: {fileID: 1811468770163272370}
-  - component: {fileID: 1811468770163272372}
   - component: {fileID: 1811468770163272374}
   m_Layer: 0
   m_Name: PhysicsPusher
@@ -6956,22 +6965,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1811468770163272372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811468770163272369}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a22b451f6097595439a10739ec0d05d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controllable: {fileID: 1811468770163272370}
-  displayText: {fileID: 1811468770401712228}
-  outputOnMax: Button Pressed
-  outputOnMin: 
 --- !u!33 &1811468770163272373
 MeshFilter:
   m_ObjectHideFlags: 0
