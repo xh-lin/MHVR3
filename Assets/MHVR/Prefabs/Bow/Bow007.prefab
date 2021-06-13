@@ -2151,14 +2151,14 @@ MonoBehaviour:
   pullMultiplier: 1
   pullOffset: 0.214
   maxPullDistance: 1
-  bowVibration: 0.062
-  stringVibration: 0.087
   arrowPrefab: {fileID: 3386058192184997742, guid: 8a8030ae355095442a2d1a4cf584852b,
     type: 3}
   snapHandle: {fileID: 1681171744543262366}
+  bowVibration: 0.06
+  stringVibration: 0.09
   shakeSpeed: 10
   shakeMultiplier: 0.01
-  spreadShotThreshold: 0.85
+  horizontalThreshold: 0.85
   bow: {fileID: 0}
   coating: {fileID: 0}
 --- !u!114 &7520115334899842568
