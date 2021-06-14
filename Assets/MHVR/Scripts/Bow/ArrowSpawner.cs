@@ -7,15 +7,18 @@ using VRTK;
 
 public class ArrowSpawner : MonoBehaviour
 {
-    public float spawnDelay = 1f;
+    public float spawnDelay = 1f;           // time it takes to spawn next arrow
     public GameObject arrowPrefab;
     public SoundBank bowPhysicalSFX;
-    public Outline outline;
 
-    private BowAim aim;
-    private AudioSource source;
+    private Outline outline;
+    private AudioSource audioSource;
     private float spawnDelayTimer;
 
+    private VRTK_InteractGrab grabbingController;   // cache grabbing controller
+    private Collider controllerCol;
+
+    // sound variables
     private int[] grabArrowSounds;
     private int grabArrowSoundsIdx;
 
@@ -23,77 +26,81 @@ public class ArrowSpawner : MonoBehaviour
     {
         if (GetComponent<AudioSource>() == null)
             gameObject.AddComponent<AudioSource>();
-        source = GetComponent<AudioSource>();
+        if (GetComponent<Outline>() == null)
+            gameObject.AddComponent<Outline>();
+
+        audioSource = GetComponent<AudioSource>();
+        outline = GetComponent<Outline>();
+
         outline.enabled = false;
         spawnDelayTimer = 0f;
+
         grabArrowSounds = new int[] { 5, 7, 16, 33 };
         grabArrowSoundsIdx = 0;
+    }
 
-        Collider spawnerCol = GetComponent<Collider>();
-        //Collider[] quiverCols = transform.parent.gameObject.GetComponentsInChildren<Collider>();
-        //foreach (var c in quiverCols)
-        //{
-        //    if(spawnerCol != c)
-        //        Physics.IgnoreCollision(spawnerCol, c);
-        //}
+    private void OnTriggerEnter(Collider collider)
+    {
+        VRTK_InteractGrab grab = collider.gameObject.GetComponent<VRTK_InteractGrab>() ?
+            collider.gameObject.GetComponent<VRTK_InteractGrab>() :
+            collider.gameObject.GetComponentInParent<VRTK_InteractGrab>();
+
+        if (grab) {
+            outline.enabled = true;
+            grabbingController = grab;
+            controllerCol = collider;
+
+            audioSource.PlayOneShot(bowPhysicalSFX.audio[10].clip, 0.3f);
+            VRTK_ControllerHaptics.TriggerHapticPulse(
+                VRTK_ControllerReference.GetControllerReference(grabbingController.gameObject),
+                bowPhysicalSFX.audio[10].clip);
+        }
     }
 
     private void OnTriggerStay(Collider collider)
     {
-        VRTK_InteractGrab grabbingController = (collider.gameObject.GetComponent<VRTK_InteractGrab>() ? 
-            collider.gameObject.GetComponent<VRTK_InteractGrab>() : 
-            collider.gameObject.GetComponentInParent<VRTK_InteractGrab>());
-
-        if (CanGrab(grabbingController) && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer)
-        {
+        if (CanGrab(grabbingController) 
+            && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer) {
             GameObject newArrow = Instantiate(arrowPrefab);
             newArrow.name = "ArrowClone";
+
             grabbingController.GetComponent<VRTK_InteractTouch>().ForceTouch(newArrow);
             grabbingController.AttemptGrab();
+
             spawnDelayTimer = Time.time + spawnDelay;
-
             PlayGrabSound(0.5f);
-        }
-
-        if(!outline.enabled && grabbingController && grabbingController.GetGrabbedObject() == null)
-        {
-            outline.enabled = true;
-            source.PlayOneShot(bowPhysicalSFX.audio[10].clip, 0.3f);
         }
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        VRTK_InteractGrab grabbingController = (collider.gameObject.GetComponent<VRTK_InteractGrab>() ?
-            collider.gameObject.GetComponent<VRTK_InteractGrab>() :
-            collider.gameObject.GetComponentInParent<VRTK_InteractGrab>());
-
-        if (grabbingController && outline.enabled)
+        if (ReferenceEquals(collider, controllerCol)) {
             outline.enabled = false;
+            grabbingController = null;
+            controllerCol = null;
+        }
     }
 
     private bool CanGrab(VRTK_InteractGrab grabbingController)
     {
-        return (grabbingController && grabbingController.GetGrabbedObject() == null && grabbingController.IsGrabButtonPressed());
+        return (grabbingController 
+            && grabbingController.GetGrabbedObject() == null 
+            && grabbingController.IsGrabButtonPressed());
     }
 
     private bool NoArrowNotched(GameObject controller)
     {
-        if (VRTK_DeviceFinder.IsControllerLeftHand(controller))
-        {
+        BowAim aim = null;
+        if (VRTK_DeviceFinder.IsControllerLeftHand(controller)) {
             GameObject controllerRightHand = VRTK_DeviceFinder.GetControllerRightHand(true);
             aim = controllerRightHand.GetComponentInChildren<BowAim>();
-            if (aim == null)
-            {
+            if (aim == null) {
                 aim = VRTK_DeviceFinder.GetModelAliasController(controllerRightHand).GetComponentInChildren<BowAim>();
             }
-        }
-        else if (VRTK_DeviceFinder.IsControllerRightHand(controller))
-        {
+        } else if (VRTK_DeviceFinder.IsControllerRightHand(controller)) {
             GameObject controllerLeftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
             aim = controllerLeftHand.GetComponentInChildren<BowAim>();
-            if (aim == null)
-            {
+            if (aim == null) {
                 aim = VRTK_DeviceFinder.GetModelAliasController(controllerLeftHand).GetComponentInChildren<BowAim>();
             }
         }
@@ -105,7 +112,7 @@ public class ArrowSpawner : MonoBehaviour
 
     private void PlayGrabSound(float volumeScale)
     {
-        source.PlayOneShot(bowPhysicalSFX.audio[grabArrowSounds[grabArrowSoundsIdx]].clip, volumeScale);
+        audioSource.PlayOneShot(bowPhysicalSFX.audio[grabArrowSounds[grabArrowSoundsIdx]].clip, volumeScale);
         grabArrowSoundsIdx = (grabArrowSoundsIdx + 1) % grabArrowSounds.Length;
     }
 
