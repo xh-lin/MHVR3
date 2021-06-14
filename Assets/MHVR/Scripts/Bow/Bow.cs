@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 
 // It controls animatoin and audio.
 public class Bow : MonoBehaviour
 {
+    [Range(0f, 1f)]
+    public float touchVibration = 0.2f;
+    [Tooltip("In seconds.")]
+    public float vibrationDuration = 0.2f;
     public SoundBank weaponSFX;
     public SoundBank bowPhysicalSFX;
     public SoundBank bowVisualSFX;
@@ -15,6 +20,7 @@ public class Bow : MonoBehaviour
     private Animator animator;
     private Rigidbody rigidBody;
     private Renderer[] bowRenderers;
+    private VRTK_InteractableObject interact;
 
     private int[] shotSounds;
     private int[] setArrowSounds;
@@ -30,6 +36,7 @@ public class Bow : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody>();
         bowRenderers = GetComponentsInChildren<Renderer>();
+        interact = GetComponent<VRTK_InteractableObject>();
 
         // set to folded animation
         animator.enabled = true;    
@@ -174,6 +181,30 @@ public class Bow : MonoBehaviour
 
     // === Functions use with VRTK_InteractableObject_UnityEvents.
 
+    private IEnumerator HapticPulse(float intensity, float duration, bool isRHand)
+    {
+        if (isRHand) OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.RTouch);
+        else OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.LTouch);
+
+        yield return new WaitForSeconds(duration);
+
+        if (isRHand) OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+        else OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
+    }
+
+    public void Touch()
+    {
+        if (interact.IsInSnapDropZone()) {
+            foreach (GameObject goTouching in interact.GetTouchingObjects()) {
+                if (VRTK_DeviceFinder.IsControllerRightHand(goTouching)) {
+                    StartCoroutine(HapticPulse(touchVibration, vibrationDuration, true));
+                } else if (VRTK_DeviceFinder.IsControllerLeftHand(goTouching)) {
+                    StartCoroutine(HapticPulse(touchVibration, vibrationDuration, false));
+                }
+            }
+        }
+    }
+
     public void Grab()
     {
         animator.enabled = true;
@@ -187,14 +218,9 @@ public class Bow : MonoBehaviour
 
     public void ToggleFold()
     {
-        if (IsFolded())
-        {
-            // Open
+        if (IsFolded()) {   // Open
             animator.SetBool("isFolded", false);
-        }
-        else if (!aim.HasArrow())
-        {
-            // Fold
+        } else if (!aim.HasArrow()) {   // Fold
             animator.SetBool("isFolded", true);
         }
     }

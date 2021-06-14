@@ -290,7 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 207193164307320823}
-  - component: {fileID: 211155607984180224}
+  - component: {fileID: 5214792720866811720}
   - component: {fileID: 167183291094198781}
   - component: {fileID: 250845333656230667}
   - component: {fileID: 211155607984180225}
@@ -312,16 +312,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211002229413126531}
-  m_LocalRotation: {x: -0.018509876, y: 0.70686454, z: 0.28195804, w: 0.6484595}
+  m_LocalRotation: {x: 0.03483606, y: 0.7062482, z: 0.33004537, w: 0.62535596}
   m_LocalPosition: {x: -0.25, y: 1.25, z: 0.19999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7444825421892653699}
   m_Father: {fileID: 8682977682432758869}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -25.000002, y: 90, z: 22}
---- !u!65 &211155607984180224
-BoxCollider:
+  m_LocalEulerAnglesHint: {x: -25.000002, y: 90.00001, z: 30.648}
+--- !u!64 &5214792720866811720
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -330,9 +330,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.5, z: 0.6}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6461865850140089346, guid: 18e775429abd4df4dbdb73c860176737, type: 3}
 --- !u!54 &167183291094198781
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -420,7 +421,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnObjectEnteredSnapDropZone:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2331466739471604511}
+        m_MethodName: Entered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnObjectExitedSnapDropZone:
     m_PersistentCalls:
       m_Calls: []
@@ -428,7 +440,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2331466739471604511}
-        m_MethodName: Snap
+        m_MethodName: Snapped
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -442,7 +454,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2331466739471604511}
-        m_MethodName: Unsnap
+        m_MethodName: Unsnapped
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -464,6 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9fb4efa6115a1b4e9b17486bc938d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vibrationIntensity: 0.2
+  vibrationDuration: 0.2
   VRTK_SnapDropZone: {fileID: 250845333656230667}
 --- !u!82 &444085265101341066
 AudioSource:
