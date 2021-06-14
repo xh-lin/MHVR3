@@ -235,10 +235,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnDelay: 1
+  vibrationIntensity: 0.2
+  vibrationDuration: 0.2
   arrowPrefab: {fileID: 3386058192184997742, guid: 8a8030ae355095442a2d1a4cf584852b,
     type: 3}
   bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
-  outline: {fileID: 9060672279121288942}
 --- !u!82 &1822624813575392805
 AudioSource:
   m_ObjectHideFlags: 0

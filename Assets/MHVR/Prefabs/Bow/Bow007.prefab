@@ -2154,8 +2154,8 @@ MonoBehaviour:
   arrowPrefab: {fileID: 3386058192184997742, guid: 8a8030ae355095442a2d1a4cf584852b,
     type: 3}
   snapHandle: {fileID: 1681171744543262366}
-  bowVibration: 0.06
-  stringVibration: 0.09
+  bowVibration: 0.1
+  stringVibration: 0.2
   shakeSpeed: 10
   shakeMultiplier: 0.01
   horizontalThreshold: 0.85

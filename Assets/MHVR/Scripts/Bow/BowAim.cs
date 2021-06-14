@@ -16,9 +16,9 @@ public class BowAim : MonoBehaviour
     public GameObject snapHandle;   // for calculating bow aiming rotation
     // vibration
     [Range(0f, 1f)]
-    public float bowVibration = 0.06f;
+    public float bowVibration = 0.1f;
     [Range(0f, 1f)]
-    public float stringVibration = 0.09f;
+    public float stringVibration = 0.2f;
     // shake
     [Range(0f, 30f)]
     public float shakeSpeed = 10f;
@@ -50,6 +50,7 @@ public class BowAim : MonoBehaviour
     private float chargeTimer;
     private const float chargeTime = 2f;       // time required to charge one level in seconds
     private const float chargeThreshold = 0.2f; // minimum pull distance to start charging
+    private bool isVibrating;
 
     // shaking
     private float arrowSeedX;
@@ -204,6 +205,10 @@ public class BowAim : MonoBehaviour
         bow.SetPullAnimation(0);
         bow.StopGlow();
         bow.StopSound();
+        if (isVibrating) {
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
+        }
 
         bow.PlayShotSound(0.5f);
     }
@@ -284,14 +289,19 @@ public class BowAim : MonoBehaviour
 
         bow.SetPullAnimation(currentPull);
 
-        // controller haptic
+        // controllers vibrate when pulling
         if (currentPull.ToString("F2") != previousPull.ToString("F2")) {
-            VRTK_ControllerHaptics.TriggerHapticPulse(
-                VRTK_ControllerReference.GetControllerReference(holdControl.gameObject),
-                bowVibration);
-            VRTK_ControllerHaptics.TriggerHapticPulse(
-                VRTK_ControllerReference.GetControllerReference(stringControl.gameObject),
-                stringVibration);
+            if (VRTK_DeviceFinder.IsControllerRightHand(holdControl.gameObject)) {
+                OVRInput.SetControllerVibration(.1f, bowVibration, OVRInput.Controller.RTouch);
+                OVRInput.SetControllerVibration(.1f, stringVibration, OVRInput.Controller.LTouch);
+            } else {
+                OVRInput.SetControllerVibration(.1f, stringVibration, OVRInput.Controller.RTouch);
+                OVRInput.SetControllerVibration(.1f, bowVibration, OVRInput.Controller.LTouch);
+            }
+            isVibrating = true;
+        } else if (isVibrating) {
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
         }
 
         // pull and hold to charge

@@ -8,6 +8,10 @@ using VRTK;
 public class ArrowSpawner : MonoBehaviour
 {
     public float spawnDelay = 1f;           // time it takes to spawn next arrow
+    [Range(0f, 1f)]
+    public float vibrationIntensity = 0.2f;
+    [Tooltip("In seconds.")]
+    public float vibrationDuration = 0.2f;
     public GameObject arrowPrefab;
     public SoundBank bowPhysicalSFX;
 
@@ -15,7 +19,8 @@ public class ArrowSpawner : MonoBehaviour
     private AudioSource audioSource;
     private float spawnDelayTimer;
 
-    private VRTK_InteractGrab grabbingController;   // cache grabbing controller
+    // cache grabbing controller
+    private VRTK_InteractGrab grabbingController;
     private Collider controllerCol;
 
     // sound variables
@@ -39,6 +44,17 @@ public class ArrowSpawner : MonoBehaviour
         grabArrowSoundsIdx = 0;
     }
 
+    private IEnumerator HapticPulse(float intensity, float duration, bool isRHand)
+    {
+        if (isRHand) OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.RTouch);
+        else OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.LTouch);
+
+        yield return new WaitForSeconds(duration);
+
+        if (isRHand) OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+        else OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
         VRTK_InteractGrab grab = collider.gameObject.GetComponent<VRTK_InteractGrab>() ?
@@ -51,9 +67,8 @@ public class ArrowSpawner : MonoBehaviour
             controllerCol = collider;
 
             audioSource.PlayOneShot(bowPhysicalSFX.audio[10].clip, 0.3f);
-            VRTK_ControllerHaptics.TriggerHapticPulse(
-                VRTK_ControllerReference.GetControllerReference(grabbingController.gameObject),
-                bowPhysicalSFX.audio[10].clip);
+            StartCoroutine(HapticPulse(vibrationIntensity, vibrationDuration, 
+                VRTK_DeviceFinder.IsControllerRightHand(grabbingController.gameObject)));
         }
     }
 
