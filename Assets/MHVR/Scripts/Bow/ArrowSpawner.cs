@@ -7,16 +7,22 @@ using VRTK;
 
 public class ArrowSpawner : MonoBehaviour
 {
-    public float spawnDelay = 1f;           // time it takes to spawn next arrow
+    [Tooltip("Spawn cool down in seconds.")]
+    public float spawnDelay = 0f;
     [Range(0f, 1f)]
     public float vibrationIntensity = 0.2f;
     [Tooltip("In seconds.")]
     public float vibrationDuration = 0.2f;
+    [Tooltip("Automatically load the arrow on to the bow.")]
+    public bool autoNocking;
+    [Tooltip("Necessary if Auto Nocking is true.")]
+    public BowHandle handle;
     public GameObject arrowPrefab;
     public SoundBank bowPhysicalSFX;
 
-    private Outline outline;
     private AudioSource audioSource;
+    private Outline outline;
+    public Collider col;
     private float spawnDelayTimer;
 
     // cache grabbing controller
@@ -27,15 +33,11 @@ public class ArrowSpawner : MonoBehaviour
     private int[] grabArrowSounds;
     private int grabArrowSoundsIdx;
 
-    private void Start()
+    private void Awake()
     {
-        if (GetComponent<AudioSource>() == null)
-            gameObject.AddComponent<AudioSource>();
-        if (GetComponent<Outline>() == null)
-            gameObject.AddComponent<Outline>();
-
         audioSource = GetComponent<AudioSource>();
         outline = GetComponent<Outline>();
+        col = GetComponent<Collider>();
 
         outline.enabled = false;
         spawnDelayTimer = 0f;
@@ -74,16 +76,20 @@ public class ArrowSpawner : MonoBehaviour
 
     private void OnTriggerStay(Collider collider)
     {
-        if (CanGrab(grabbingController) 
-            && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer) {
+        if (CanGrab(grabbingController) && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer) {
+            // spawn an arrow on hand
             GameObject newArrow = Instantiate(arrowPrefab);
             newArrow.name = "ArrowClone";
-
+            grabbingController.GetComponent<VRTK_InteractTouch>().ForceStopTouching();
             grabbingController.GetComponent<VRTK_InteractTouch>().ForceTouch(newArrow);
             grabbingController.AttemptGrab();
 
             spawnDelayTimer = Time.time + spawnDelay;
             PlayGrabSound(0.5f);
+
+            if (autoNocking) {
+                newArrow.GetComponent<ArrowNotch>().NockingArrow(handle);
+            }
         }
     }
 
@@ -94,6 +100,18 @@ public class ArrowSpawner : MonoBehaviour
             grabbingController = null;
             controllerCol = null;
         }
+    }
+
+    private void OnEnable()
+    {
+        col.enabled = true;
+        outline.enabled = autoNocking;
+    }
+
+    private void OnDisable()
+    {
+        col.enabled = false;
+        outline.enabled = false;
     }
 
     private bool CanGrab(VRTK_InteractGrab grabbingController)

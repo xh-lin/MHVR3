@@ -3,6 +3,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.UI;
 using VRTK;
 
 public class BowAim : MonoBehaviour
@@ -12,8 +14,6 @@ public class BowAim : MonoBehaviour
     public float pullMultiplier = 1.0f;
     public float pullOffset = 0.214f;
     public float maxPullDistance = 1.0f;
-    public GameObject arrowPrefab;
-    public GameObject snapHandle;   // for calculating bow aiming rotation
     // vibration
     [Range(0f, 1f)]
     public float bowVibration = 0.1f;
@@ -27,6 +27,10 @@ public class BowAim : MonoBehaviour
     // spread shot
     [Range(0f, 1f)] // 90 ~ 0 degree
     public float horizontalThreshold = 0.85f; // 0.85 ~> 30°, for determining horizontal bow holding
+    public GameObject snapHandle;   // for calculating bow aiming rotation
+    public GameObject arrowPrefab;
+    public Image progressRingImage;
+    public ArrowSpawner nockingPointArrowSpawner;
 
     private GameObject currentArrow;
     private BowHandle handle;
@@ -45,12 +49,15 @@ public class BowAim : MonoBehaviour
     private float previousPull;
 
     // charge pull
-    private int chargeLevel;
+    private bool isVibrating;                   // are controllers vibrating?
+    private const float chargeStartDist = 0.2f; // minimum pull distance to start charging
+    private int chargeLevel;                    // current charge level
     private const int maxChargeLevel = 3;
+    private float chargeHoldTimer;
+    private const float chargeHoldTime = 2f;    // time required to hold charge one level in seconds
+
     private float chargeTimer;
-    private const float chargeTime = 2f;       // time required to charge one level in seconds
-    private const float chargeThreshold = 0.2f; // minimum pull distance to start charging
-    private bool isVibrating;
+    private const float chargeTimeWindow = 1f;  // time window to pull again to increase charge level
 
     // shaking
     private float arrowSeedX;
@@ -113,6 +120,18 @@ public class BowAim : MonoBehaviour
             if (currentArrow != null)
                 Release();
         }
+
+        // update the progress ring
+        if (chargeTimer >= 0) {
+            chargeTimer -= Time.deltaTime;
+            progressRingImage.fillAmount = chargeTimer / chargeTimeWindow;
+        }
+
+        // shot to charge time window update
+        if (chargeTimer <= 0 && nockingPointArrowSpawner.enabled)
+            nockingPointArrowSpawner.enabled = false;
+        if (chargeTimer > 0 && !nockingPointArrowSpawner.enabled)
+            nockingPointArrowSpawner.enabled = true;
     }
 
     public bool IsHeld()
@@ -211,6 +230,8 @@ public class BowAim : MonoBehaviour
         }
 
         bow.PlayShotSound(0.5f);
+
+        chargeTimer = chargeTimeWindow;
     }
 
     private void DuplicateArrow(Vector3 direction)
@@ -305,15 +326,15 @@ public class BowAim : MonoBehaviour
         }
 
         // pull and hold to charge
-        if (currentPull > chargeThreshold) {
-            if (previousPull < chargeThreshold) {   // start charging
+        if (currentPull > chargeStartDist) {
+            if (previousPull < chargeStartDist) {   // start charging
                 bow.PlayStringStretchSound(0.2f);
                 bow.PlayPullSound(chargeLevel, 0.5f, 0.2f);
             }
             if (chargeLevel < maxChargeLevel) {     // continue charging till max
-                chargeTimer += Time.deltaTime;
-                if (chargeTimer > chargeTime) {
-                    chargeTimer = 0f;
+                chargeHoldTimer += Time.deltaTime;
+                if (chargeHoldTimer > chargeHoldTime) {
+                    chargeHoldTimer = 0f;
                     chargeLevel += 1;
                     bow.PlayPullSound(chargeLevel, 0.5f, 0.2f);
                     // charge level up effects
@@ -326,8 +347,8 @@ public class BowAim : MonoBehaviour
                     }
                 }
             }
-        } else if (previousPull > chargeThreshold) {    // cancel charging
-            chargeTimer = 0f;
+        } else if (previousPull > chargeStartDist) {    // cancel charging
+            chargeHoldTimer = 0f;
             chargeLevel = 1;
             bow.StopGlow();
             bow.StopSound();    // Stop pull hold sound loop

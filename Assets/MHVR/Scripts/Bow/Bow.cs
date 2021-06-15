@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿/*
+ *  It controls bow animatoin, audio and effect.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
 
-// It controls animatoin and audio.
+
 public class Bow : MonoBehaviour
 {
     [Range(0f, 1f)]
@@ -21,6 +25,7 @@ public class Bow : MonoBehaviour
     private Rigidbody rigidBody;
     private Renderer[] bowRenderers;
     private VRTK_InteractableObject interact;
+    private Outline outline;
 
     private int[] shotSounds;
     private int[] setArrowSounds;
@@ -37,10 +42,12 @@ public class Bow : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         bowRenderers = GetComponentsInChildren<Renderer>();
         interact = GetComponent<VRTK_InteractableObject>();
+        outline = GetComponent<Outline>();
 
         // set to folded animation
         animator.enabled = true;    
         rigidBody.isKinematic = true;
+        outline.enabled = false;
 
         // initialize audio variables
         shotSounds = new int[] { 2, 4 };
@@ -55,6 +62,11 @@ public class Bow : MonoBehaviour
     {
         animator.enabled = false;
         rigidBody.isKinematic = false;
+
+        interact.InteractableObjectTouched += Touch;
+        interact.InteractableObjectUntouched += Untouch;
+        interact.InteractableObjectGrabbed += Grab;
+        interact.InteractableObjectUngrabbed += Ungrab;
     }
 
     public bool IsFolded()
@@ -179,7 +191,16 @@ public class Bow : MonoBehaviour
             source.Stop();
     }
 
-    // === Functions use with VRTK_InteractableObject_UnityEvents.
+    public void ToggleFold()
+    {
+        if (IsFolded()) {
+            animator.SetBool("isFolded", false);    // Open
+        } else if (!aim.HasArrow()) {
+            animator.SetBool("isFolded", true);     // Fold
+        }
+    }
+
+    // === VRTK_InteractableObject event callbacks.
 
     private IEnumerator HapticPulse(float intensity, float duration, bool isRHand)
     {
@@ -192,9 +213,10 @@ public class Bow : MonoBehaviour
         else OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
     }
 
-    public void Touch()
+    protected virtual void Touch(object sender, InteractableObjectEventArgs e)
     {
         if (interact.IsInSnapDropZone()) {
+            outline.enabled = true;
             foreach (GameObject goTouching in interact.GetTouchingObjects()) {
                 if (VRTK_DeviceFinder.IsControllerRightHand(goTouching)) {
                     StartCoroutine(HapticPulse(touchVibration, vibrationDuration, true));
@@ -205,24 +227,21 @@ public class Bow : MonoBehaviour
         }
     }
 
-    public void Grab()
+    protected virtual void Untouch(object sender, InteractableObjectEventArgs e)
     {
+        outline.enabled = false;
+    }
+
+    protected virtual void Grab(object sender, InteractableObjectEventArgs e)
+    {
+        outline.enabled = false;
         animator.enabled = true;
     }
 
-    public void Ungrab()
+    protected virtual void Ungrab(object sender, InteractableObjectEventArgs e)
     {
         SetPullAnimation(0f);
         animator.enabled = false;
-    }
-
-    public void ToggleFold()
-    {
-        if (IsFolded()) {   // Open
-            animator.SetBool("isFolded", false);
-        } else if (!aim.HasArrow()) {   // Fold
-            animator.SetBool("isFolded", true);
-        }
     }
 
     // ===
