@@ -82,6 +82,9 @@ namespace VRTK
         [Tooltip("The Interactable Object to snap into the dropzone when the drop zone is enabled. The Interactable Object must be valid in any given policy list to snap.")]
         public VRTK_InteractableObject defaultSnappedInteractableObject;
 
+        [Tooltip("The grabbing controller need to enter the snap drop zone.")]
+        public bool controllerNeedToEnter = false;
+
         [Header("Obsolete Settings")]
 
         [System.Obsolete("`VRTK_SnapDropZone.defaultSnappedObject` has been replaced with the `VRTK_SnapDropZone.defaultSnappedInteractableObject`. This parameter will be removed in a future version of VRTK.")]
@@ -455,7 +458,16 @@ namespace VRTK
 
         protected virtual void OnTriggerEnter(Collider collider)
         {
-            CheckCanSnap(collider.GetComponentInParent<VRTK_InteractableObject>());
+            if (controllerNeedToEnter) {
+                VRTK_InteractGrab grab = collider.gameObject.GetComponent<VRTK_InteractGrab>() ?
+                    collider.gameObject.GetComponent<VRTK_InteractGrab>() :
+                    collider.gameObject.GetComponentInParent<VRTK_InteractGrab>();
+                if (grab && grab.GetGrabbedObject() != null) {
+                    CheckCanSnap(grab.GetGrabbedObject().GetComponentInParent<VRTK_InteractableObject>());
+                }
+            } else {
+                CheckCanSnap(collider.GetComponentInParent<VRTK_InteractableObject>());
+            }
         }
 
         protected virtual void OnTriggerExit(Collider collider)

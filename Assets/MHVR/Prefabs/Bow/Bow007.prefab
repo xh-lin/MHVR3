@@ -1189,6 +1189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7612618311017901927}
   - component: {fileID: 4180653321450174326}
+  - component: {fileID: 4118064396243829694}
   m_Layer: 0
   m_Name: Meshes
   m_TagString: Untagged
@@ -1231,6 +1232,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6848945311695076567, guid: 58f41714f17d46a478e6d184c399d31a, type: 3}
+--- !u!64 &4118064396243829694
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144218300935946174}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3739839033472326272, guid: 58f41714f17d46a478e6d184c399d31a, type: 3}
 --- !u!1 &4608559736686139197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,6 +1692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5408902193210763586}
   - component: {fileID: 5027789117111742508}
+  - component: {fileID: 20762165624105172}
   m_Layer: 0
   m_Name: Fold Joint
   m_TagString: Untagged
@@ -1717,6 +1733,20 @@ RotationConstraint:
   m_Sources:
   - sourceTransform: {fileID: 3485999682332103716}
     weight: 1
+--- !u!64 &20762165624105172
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6156278307621211710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2103652009568040590, guid: 58f41714f17d46a478e6d184c399d31a, type: 3}
 --- !u!1 &6307741306627870616
 GameObject:
   m_ObjectHideFlags: 0

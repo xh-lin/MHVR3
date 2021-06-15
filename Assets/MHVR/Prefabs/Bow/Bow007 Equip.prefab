@@ -92,6 +92,7 @@ MonoBehaviour:
   validObjectListPolicy: {fileID: 211155608269439955}
   displayDropZoneInEditor: 1
   defaultSnappedInteractableObject: {fileID: 0}
+  controllerNeedToEnter: 0
   defaultSnappedObject: {fileID: 0}
 --- !u!114 &211155608269439955
 MonoBehaviour:
@@ -373,6 +374,7 @@ MonoBehaviour:
   validObjectListPolicy: {fileID: 211155607984180225}
   displayDropZoneInEditor: 1
   defaultSnappedInteractableObject: {fileID: 6054975202089884382}
+  controllerNeedToEnter: 1
   defaultSnappedObject: {fileID: 0}
 --- !u!114 &211155607984180225
 MonoBehaviour:
@@ -1156,6 +1158,7 @@ MonoBehaviour:
   validObjectListPolicy: {fileID: 1834250231188288244}
   displayDropZoneInEditor: 1
   defaultSnappedInteractableObject: {fileID: 4327140372562018737}
+  controllerNeedToEnter: 0
   defaultSnappedObject: {fileID: 0}
 --- !u!114 &1834250231188288244
 MonoBehaviour:
@@ -1730,6 +1733,7 @@ MonoBehaviour:
   validObjectListPolicy: {fileID: 4556281455275424239}
   displayDropZoneInEditor: 1
   defaultSnappedInteractableObject: {fileID: 5404028236272444298}
+  controllerNeedToEnter: 0
   defaultSnappedObject: {fileID: 0}
 --- !u!114 &4556281455275424239
 MonoBehaviour:
@@ -2366,6 +2370,7 @@ MonoBehaviour:
   validObjectListPolicy: {fileID: 8862252109174595665}
   displayDropZoneInEditor: 1
   defaultSnappedInteractableObject: {fileID: 6556650609852619015}
+  controllerNeedToEnter: 0
   defaultSnappedObject: {fileID: 0}
 --- !u!114 &8862252109174595665
 MonoBehaviour:
