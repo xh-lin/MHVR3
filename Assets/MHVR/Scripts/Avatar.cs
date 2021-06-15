@@ -11,19 +11,17 @@ public class Avatar : MonoBehaviour
     [HideInInspector]
     public GameObject equip;
 
-    private VRTK_SDKManager VRTK_SDKManager;
-
     private void Start()
     {
-        VRTK_SDKManager = FindObjectsOfType<VRTK_SDKManager>()[0];
-        Invoke(nameof(LateStart), 0.1f);
+        StartCoroutine(LateStart());
     }
 
-    private void LateStart()
+    IEnumerator LateStart()
     {
-        Transform headset = VRTK_SDKManager.loadedSetup.actualHeadset.transform;
-        ConstraintSource sourceHeadset = new ConstraintSource
-        {
+        // setup constraint to follow the VR headset
+        yield return new WaitForEndOfFrame();
+        Transform headset = FindObjectsOfType<VRTK_SDKManager>()[0].loadedSetup.actualHeadset.transform;
+        ConstraintSource sourceHeadset = new ConstraintSource {
             sourceTransform = headset,
             weight = 1f
         };
