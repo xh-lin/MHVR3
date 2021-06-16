@@ -13,10 +13,7 @@ GameObject:
   - component: {fileID: 1735861972399783599}
   - component: {fileID: 5938164382542011894}
   - component: {fileID: 8058642319730285869}
-  - component: {fileID: 5891398845739399018}
-  - component: {fileID: 1845128013451222349}
   - component: {fileID: 4377952542878230129}
-  - component: {fileID: 2513287516164647241}
   - component: {fileID: 2984674007842693637}
   - component: {fileID: 1930941509126544844}
   m_Layer: 0
@@ -95,7 +92,7 @@ MonoBehaviour:
   grabOverrideButton: 0
   allowedGrabControllers: 0
   grabAttachMechanicScript: {fileID: 8058642319730285869}
-  secondaryGrabActionScript: {fileID: 5891398845739399018}
+  secondaryGrabActionScript: {fileID: 0}
   isUsable: 0
   holdButtonToUse: 0
   useOnlyIfGrabbed: 0
@@ -123,54 +120,6 @@ MonoBehaviour:
   throwVelocityWithAttachDistance: 0
   throwMultiplier: 1
   onGrabCollisionDelay: 0
---- !u!114 &5891398845739399018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3386058192184997742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18055ba762aa3994f9c10208cd088bc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1845128013451222349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3386058192184997742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069f22b475dd2da42becf7aa319a1ab9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToAffect: {fileID: 0}
-  objectToMonitor: {fileID: 0}
-  gameObjectActiveByDefault: 1
-  rendererVisibleByDefault: 1
-  gameObjectActiveOnNearTouch: 1
-  rendererVisibleOnNearTouch: 1
-  nearTouchAppearanceDelay: 0
-  nearUntouchAppearanceDelay: 0
-  validNearTouchInteractingObject: 0
-  gameObjectActiveOnTouch: 1
-  rendererVisibleOnTouch: 1
-  touchAppearanceDelay: 0
-  untouchAppearanceDelay: 0
-  validTouchInteractingObject: 0
-  gameObjectActiveOnGrab: 1
-  rendererVisibleOnGrab: 0
-  grabAppearanceDelay: 0
-  ungrabAppearanceDelay: 0
-  validGrabInteractingObject: 0
-  gameObjectActiveOnUse: 1
-  rendererVisibleOnUse: 0
-  useAppearanceDelay: 0
-  unuseAppearanceDelay: 0
-  validUseInteractingObject: 0
 --- !u!114 &4377952542878230129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,104 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 0}
---- !u!114 &2513287516164647241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3386058192184997742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f96f1837f21d4bf9a77ff61e7b81f20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnObjectEnable:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectDisable:
-    m_PersistentCalls:
-      m_Calls: []
-  OnNearTouch:
-    m_PersistentCalls:
-      m_Calls: []
-  OnNearUntouch:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTouch:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1930941509126544844}
-        m_MethodName: On
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnUntouch:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1930941509126544844}
-        m_MethodName: Off
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnGrab:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1930941509126544844}
-        m_MethodName: Off
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnUngrab:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1930941509126544844}
-        m_MethodName: Off
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnUse:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUnuse:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEnterSnapDropZone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnExitSnapDropZone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSnapToDropZone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUnsnapFromDropZone:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2984674007842693637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aff57d0ad810a1429414064fd34a76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interact: {fileID: 5938164382542011894}
   outline: {fileID: 2984674007842693637}
 --- !u!1 &3543282225700662452
 GameObject:

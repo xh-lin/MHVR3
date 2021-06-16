@@ -11,7 +11,7 @@ public class Coating : MonoBehaviour
     public int quantity = 20;
     public SoundBank bowPhysicalSFX;
 
-    private AudioSource source;
+    private AudioSource audioSource;
     private Renderer[] bowRenderers;
     private Dictionary<Type, Color> colorOfType = new Dictionary<Type, Color>()
     {
@@ -25,10 +25,13 @@ public class Coating : MonoBehaviour
 
     private void Start()
     {
-        source = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         bowRenderers = GetComponentsInChildren<Renderer>();
+
         foreach (var renderer in bowRenderers)
+        {
             renderer.material.SetColor("_coatingColor", colorOfType[type]);
+        }
     }
 
     public Color Consume()
@@ -45,12 +48,12 @@ public class Coating : MonoBehaviour
 
     public void PlayApplySound(float volumeScale)
     {
-        source.PlayOneShot(bowPhysicalSFX.audio[30].clip, volumeScale);
+        audioSource.PlayOneShot(bowPhysicalSFX.audio[30].clip, volumeScale);
     }
 
     public void PlayRemoveSound(float volumeScale)
     {
-        source.PlayOneShot(bowPhysicalSFX.audio[4].clip, volumeScale);
+        audioSource.PlayOneShot(bowPhysicalSFX.audio[4].clip, volumeScale);
     }
 
     // ===

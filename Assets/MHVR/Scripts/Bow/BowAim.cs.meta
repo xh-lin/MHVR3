@@ -3,7 +3,14 @@ guid: 54c31dbf9919e2c46b220554a99eff7a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - snapHandle: {instanceID: 0}
+  - arrowPrefab: {fileID: 3386058192184997742, guid: 8a8030ae355095442a2d1a4cf584852b,
+      type: 3}
+  - progressRingImage: {instanceID: 0}
+  - nockingPointArrowSpawner: {instanceID: 0}
+  - bow: {instanceID: 0}
+  - coating: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

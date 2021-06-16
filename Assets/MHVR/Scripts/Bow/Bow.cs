@@ -107,13 +107,17 @@ public class Bow : MonoBehaviour
     public void GlowSetMuliplier(float mult)
     {
         foreach (var renderer in bowRenderers)
+        {
             renderer.material.SetFloat("_glowColorMultiplier", mult);
+        }
     }
 
     public void GlowBreath(bool b)
     {
         foreach (var renderer in bowRenderers)
+        {
             renderer.material.SetInt("_isBreath", b ? 1 : 0);
+        }
     }
 
     public void StopGlow()
@@ -188,14 +192,19 @@ public class Bow : MonoBehaviour
     public void StopSound()
     {
         if (source.isPlaying)
+        {
             source.Stop();
+        }
     }
 
     public void ToggleFold()
     {
-        if (IsFolded()) {
+        if (IsFolded())
+        {
             animator.SetBool("isFolded", false);    // Open
-        } else if (!aim.HasArrow()) {
+        }
+        else if (!aim.HasArrow())
+        {
             animator.SetBool("isFolded", true);     // Fold
         }
     }
@@ -204,23 +213,40 @@ public class Bow : MonoBehaviour
 
     private IEnumerator HapticPulse(float intensity, float duration, bool isRHand)
     {
-        if (isRHand) OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.RTouch);
-        else OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.LTouch);
+        if (isRHand)
+        {
+            OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.RTouch);
+        }
+        else
+        {
+            OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.LTouch);
+        }
 
         yield return new WaitForSeconds(duration);
 
-        if (isRHand) OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
-        else OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
+        if (isRHand)
+        {
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+        }
+        else
+        {
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
+        }
     }
 
     protected virtual void Touch(object sender, InteractableObjectEventArgs e)
     {
-        if (interact.IsInSnapDropZone()) {
+        if (interact.IsInSnapDropZone())
+        {
             outline.enabled = true;
-            foreach (GameObject goTouching in interact.GetTouchingObjects()) {
-                if (VRTK_DeviceFinder.IsControllerRightHand(goTouching)) {
+            foreach (GameObject goTouching in interact.GetTouchingObjects())
+            {
+                if (VRTK_DeviceFinder.IsControllerRightHand(goTouching))
+                {
                     StartCoroutine(HapticPulse(touchVibration, vibrationDuration, true));
-                } else if (VRTK_DeviceFinder.IsControllerLeftHand(goTouching)) {
+                }
+                else if (VRTK_DeviceFinder.IsControllerLeftHand(goTouching))
+                {
                     StartCoroutine(HapticPulse(touchVibration, vibrationDuration, false));
                 }
             }

@@ -3,7 +3,10 @@ guid: 7164598af73a0604897b564056da9641
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - weaponSFX: {instanceID: 0}
+  - bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
+  - bowVisualSFX: {fileID: 11400000, guid: aa7b731c1329d444ea807c85dd8c04e0, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

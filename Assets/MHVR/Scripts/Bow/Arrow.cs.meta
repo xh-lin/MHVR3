@@ -3,7 +3,9 @@ guid: def5bb413b8124745814ac1125b13bae
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bowVisualSFX: {fileID: 11400000, guid: aa7b731c1329d444ea807c85dd8c04e0, type: 2}
+  - ps: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

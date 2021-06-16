@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc3e3401ba288644ab1ea450b1f5c04b, type: 3}
-  m_Name: wp_bow_cmn
+  m_Name: Bow Physical SFX
   m_EditorClassIdentifier: 
-  name: wp_bow_cmn
-  description: Bow Physical SFX
+  description: wp_bow_cmn
   audio:
   - clip: {fileID: 0}
     description: 

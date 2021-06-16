@@ -22,7 +22,7 @@ public class ArrowSpawner : MonoBehaviour
 
     private AudioSource audioSource;
     private Outline outline;
-    public Collider col;
+    private Collider col;
     private float spawnDelayTimer;
 
     // cache grabbing controller
@@ -48,35 +48,46 @@ public class ArrowSpawner : MonoBehaviour
 
     private IEnumerator HapticPulse(float intensity, float duration, bool isRHand)
     {
-        if (isRHand) OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.RTouch);
-        else OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.LTouch);
+        if (isRHand)
+        {
+            OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.RTouch);
+        }
+        else
+        {
+            OVRInput.SetControllerVibration(.1f, intensity, OVRInput.Controller.LTouch);
+        }
 
         yield return new WaitForSeconds(duration);
 
-        if (isRHand) OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
-        else OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
+        if (isRHand)
+        {
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+        }
+        else
+        {
+            OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        VRTK_InteractGrab grab = collider.gameObject.GetComponent<VRTK_InteractGrab>() ?
-            collider.gameObject.GetComponent<VRTK_InteractGrab>() :
-            collider.gameObject.GetComponentInParent<VRTK_InteractGrab>();
+        VRTK_InteractGrab grab = collider.gameObject.GetComponent<VRTK_InteractGrab>() ? collider.gameObject.GetComponent<VRTK_InteractGrab>() : collider.gameObject.GetComponentInParent<VRTK_InteractGrab>();
 
-        if (grab) {
+        if (grab)
+        {
             outline.enabled = true;
             grabbingController = grab;
             controllerCol = collider;
 
             audioSource.PlayOneShot(bowPhysicalSFX.audio[10].clip, 0.3f);
-            StartCoroutine(HapticPulse(vibrationIntensity, vibrationDuration, 
-                VRTK_DeviceFinder.IsControllerRightHand(grabbingController.gameObject)));
+            StartCoroutine(HapticPulse(vibrationIntensity, vibrationDuration, VRTK_DeviceFinder.IsControllerRightHand(grabbingController.gameObject)));
         }
     }
 
     private void OnTriggerStay(Collider collider)
     {
-        if (CanGrab(grabbingController) && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer) {
+        if (CanGrab(grabbingController) && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer)
+        {
             // spawn an arrow on hand
             GameObject newArrow = Instantiate(arrowPrefab);
             newArrow.name = "ArrowClone";
@@ -87,7 +98,8 @@ public class ArrowSpawner : MonoBehaviour
             spawnDelayTimer = Time.time + spawnDelay;
             PlayGrabSound(0.5f);
 
-            if (autoNocking) {
+            if (autoNocking)
+            {
                 newArrow.GetComponent<ArrowNotch>().NockingArrow(handle);
             }
         }
@@ -95,7 +107,8 @@ public class ArrowSpawner : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (ReferenceEquals(collider, controllerCol)) {
+        if (ReferenceEquals(collider, controllerCol))
+        {
             outline.enabled = false;
             grabbingController = null;
             controllerCol = null;
@@ -116,24 +129,27 @@ public class ArrowSpawner : MonoBehaviour
 
     private bool CanGrab(VRTK_InteractGrab grabbingController)
     {
-        return (grabbingController 
-            && grabbingController.GetGrabbedObject() == null 
-            && grabbingController.IsGrabButtonPressed());
+        return (grabbingController && grabbingController.GetGrabbedObject() == null && grabbingController.IsGrabButtonPressed());
     }
 
     private bool NoArrowNotched(GameObject controller)
     {
         BowAim aim = null;
-        if (VRTK_DeviceFinder.IsControllerLeftHand(controller)) {
+        if (VRTK_DeviceFinder.IsControllerLeftHand(controller))
+        {
             GameObject controllerRightHand = VRTK_DeviceFinder.GetControllerRightHand(true);
             aim = controllerRightHand.GetComponentInChildren<BowAim>();
-            if (aim == null) {
+            if (aim == null)
+            {
                 aim = VRTK_DeviceFinder.GetModelAliasController(controllerRightHand).GetComponentInChildren<BowAim>();
             }
-        } else if (VRTK_DeviceFinder.IsControllerRightHand(controller)) {
+        }
+        else if (VRTK_DeviceFinder.IsControllerRightHand(controller))
+        {
             GameObject controllerLeftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
             aim = controllerLeftHand.GetComponentInChildren<BowAim>();
-            if (aim == null) {
+            if (aim == null)
+            {
                 aim = VRTK_DeviceFinder.GetModelAliasController(controllerLeftHand).GetComponentInChildren<BowAim>();
             }
         }

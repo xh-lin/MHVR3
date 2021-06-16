@@ -24,6 +24,8 @@ public class TargetMovement : MonoBehaviour
         lerpVal += speed * Time.deltaTime;
         transform.localPosition = Vector3.Lerp(Vector3.zero, endPosition, lerpVal);
         if (lerpVal >= 1f || lerpVal <= 0f)
+        {
             speed = -speed;
+        }
     }
 }

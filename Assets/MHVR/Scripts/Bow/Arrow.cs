@@ -41,7 +41,9 @@ public class Arrow : MonoBehaviour
     private void FixedUpdate()
     {
         if (inFlight && !isCollided)
+        {
             transform.LookAt(transform.position + rigidBody.velocity);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -106,7 +108,9 @@ public class Arrow : MonoBehaviour
     public void StopSound()
     {
         if (source.isPlaying)
+        {
             source.Stop();
+        }
     }
 
     // ===

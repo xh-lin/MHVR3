@@ -3,7 +3,9 @@ guid: c87987c7c9e79cb4cb32112c98dc5139
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - VRTK_SnapDropZone: {instanceID: 0}
+  - bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

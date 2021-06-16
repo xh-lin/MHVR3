@@ -458,14 +458,16 @@ namespace VRTK
 
         protected virtual void OnTriggerEnter(Collider collider)
         {
-            if (controllerNeedToEnter) {
-                VRTK_InteractGrab grab = collider.gameObject.GetComponent<VRTK_InteractGrab>() ?
-                    collider.gameObject.GetComponent<VRTK_InteractGrab>() :
-                    collider.gameObject.GetComponentInParent<VRTK_InteractGrab>();
-                if (grab && grab.GetGrabbedObject() != null) {
+            if (controllerNeedToEnter)
+            {
+                VRTK_InteractGrab grab = collider.gameObject.GetComponent<VRTK_InteractGrab>() ? collider.gameObject.GetComponent<VRTK_InteractGrab>() : collider.gameObject.GetComponentInParent<VRTK_InteractGrab>();
+                if (grab && grab.GetGrabbedObject() != null)
+                {
                     CheckCanSnap(grab.GetGrabbedObject().GetComponentInParent<VRTK_InteractableObject>());
                 }
-            } else {
+            }
+            else
+            {
                 CheckCanSnap(collider.GetComponentInParent<VRTK_InteractableObject>());
             }
         }

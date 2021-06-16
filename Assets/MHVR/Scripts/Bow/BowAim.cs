@@ -78,8 +78,8 @@ public class BowAim : MonoBehaviour
         bow = GetComponent<Bow>();
         handle = GetComponentInChildren<BowHandle>();
         interact = GetComponent<VRTK_InteractableObject>();
-        interact.InteractableObjectGrabbed += new InteractableObjectEventHandler(DoObjectGrab);
 
+        interact.InteractableObjectGrabbed += new InteractableObjectEventHandler(DoObjectGrab);
         chargeLevel = 1;
 
         arrowSeedX = Random.value * 10f;
@@ -92,46 +92,56 @@ public class BowAim : MonoBehaviour
     private void Update()
     {
         // holding bow with arrow loaded
-        if (currentArrow != null && IsHeld()) {
+        if (currentArrow != null && IsHeld())
+        {
             AimArrow();
             AimBow();
             PullString();
             // release arrow
-            if (!stringControl.IsGrabButtonPressed()) {
+            if (!stringControl.IsGrabButtonPressed())
+            {
                 coatingColor = (coating == null) ? Color.clear : coating.Consume();
                 currentArrow.GetComponent<Arrow>().Fired(coatingColor);
                 isFired = true;
                 releaseRotation = transform.localRotation;
                 Release();
             }
-        } else if (IsHeld()) {  // recover bow rotation after releasing arrow
-            if (isFired) {
+        }
+        else if (IsHeld())  // recover bow rotation after releasing arrow
+        {
+            if (isFired)
+            {
                 isFired = false;
                 fireOffset = Time.time;
             }
-            if (gotBaseRotation && transform.localRotation != baseRotation) {
-                transform.localRotation = Quaternion.Lerp(releaseRotation, baseRotation, 
-                    (Time.time - fireOffset) * 8);
+            if (gotBaseRotation && transform.localRotation != baseRotation)
+            {
+                transform.localRotation = Quaternion.Lerp(releaseRotation, baseRotation, (Time.time - fireOffset) * 8);
             }
         }
 
         // release arrow if drop bow while arrow loaded
-        if (!IsHeld()) {
-            if (currentArrow != null)
-                Release();
+        if (!IsHeld() && currentArrow != null)
+        {
+            Release();
         }
 
         // update the progress ring
-        if (chargeTimer >= 0) {
+        if (chargeTimer >= 0)
+        {
             chargeTimer -= Time.deltaTime;
             progressRingImage.fillAmount = chargeTimer / chargeTimeWindow;
         }
 
         // shot to charge time window update
         if (chargeTimer <= 0 && nockingPointArrowSpawner.enabled)
+        {
             nockingPointArrowSpawner.enabled = false;
+        }
         if (chargeTimer > 0 && !nockingPointArrowSpawner.enabled)
+        {
             nockingPointArrowSpawner.enabled = true;
+        }
     }
 
     public bool IsHeld()
@@ -152,13 +162,17 @@ public class BowAim : MonoBehaviour
 
     private void DoObjectGrab(object sender, InteractableObjectEventArgs e)
     {
-        if (VRTK_DeviceFinder.IsControllerLeftHand(e.interactingObject)) {
+        if (VRTK_DeviceFinder.IsControllerLeftHand(e.interactingObject))
+        {
             holdControl = VRTK_DeviceFinder.GetControllerLeftHand().GetComponent<VRTK_InteractGrab>();
             stringControl = VRTK_DeviceFinder.GetControllerRightHand().GetComponent<VRTK_InteractGrab>();
-        } else {
+        }
+        else
+        {
             stringControl = VRTK_DeviceFinder.GetControllerLeftHand().GetComponent<VRTK_InteractGrab>();
             holdControl = VRTK_DeviceFinder.GetControllerRightHand().GetComponent<VRTK_InteractGrab>();
         }
+
         StartCoroutine(nameof(GetBaseRotation));
     }
 
@@ -176,30 +190,36 @@ public class BowAim : MonoBehaviour
         // let arrow colliders ignore bow colliders
         Collider[] arrowCols = currentArrow.GetComponentsInChildren<Collider>();
         Collider[] BowCols = GetComponentsInChildren<Collider>();
-        foreach (var ac in arrowCols) {
+        foreach (var ac in arrowCols)
+        {
             ac.enabled = true;
             foreach (var bc in BowCols)
+            {
                 Physics.IgnoreCollision(ac, bc);
+            }
         }
 
         // setup arrow collision and move speed
         currentArrow.GetComponent<Rigidbody>().isKinematic = false;
         currentArrow.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
-        currentArrow.GetComponent<Rigidbody>().velocity = currentPull * powerMultiplier * 
-            currentArrow.transform.TransformDirection(Vector3.forward);
+        currentArrow.GetComponent<Rigidbody>().velocity = currentPull * powerMultiplier * currentArrow.transform.TransformDirection(Vector3.forward);
 
         currentArrow.GetComponent<Arrow>().InFlight();
         currentArrow.GetComponent<Arrow>().StopSound(); // stop charging sound
 
         Vector3 bowUp = transform.TransformDirection(Vector3.up);
-        if (Vector3.ProjectOnPlane(bowUp, Vector3.up).magnitude > horizontalThreshold) {
+        if (Vector3.ProjectOnPlane(bowUp, Vector3.up).magnitude > horizontalThreshold)
+        {
             // spread shot, if the bow is holding horizontally
             DuplicateArrow(new Vector3(0.1f, 0f, 1f));
             DuplicateArrow(new Vector3(-0.1f, 0f, 1f));
             currentArrow.GetComponent<Arrow>().PlaySpreadShotSound(chargeLevel, 0.2f);
-        } else {
+        }
+        else
+        {
             // charged shot
-            switch (chargeLevel) {
+            switch (chargeLevel)
+            {
                 case 2:
                     DuplicateArrow(new Vector3(0f, -0.01f, 1f));
                     break;
@@ -224,7 +244,8 @@ public class BowAim : MonoBehaviour
         bow.SetPullAnimation(0);
         bow.StopGlow();
         bow.StopSound();
-        if (isVibrating) {
+        if (isVibrating)
+        {
             OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
             OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
         }
@@ -237,8 +258,7 @@ public class BowAim : MonoBehaviour
     private void DuplicateArrow(Vector3 direction)
     {
         // create a new arrow from prefab
-        GameObject newArrowNotch = Instantiate(arrowPrefab, currentArrow.transform.position, 
-            currentArrow.transform.rotation);
+        GameObject newArrowNotch = Instantiate(arrowPrefab, currentArrow.transform.position, currentArrow.transform.rotation);
         GameObject newArrow = newArrowNotch.GetComponent<ArrowNotch>().arrow;
 
         newArrowNotch.GetComponent<ArrowNotch>().CopyNotchToArrow();
@@ -247,31 +267,39 @@ public class BowAim : MonoBehaviour
         // let arrow colliders ignore bow colliders
         Collider[] arrowCols = newArrow.GetComponentsInChildren<Collider>();
         Collider[] BowCols = GetComponentsInChildren<Collider>();
-        foreach (var ac in arrowCols) {
+        foreach (var ac in arrowCols)
+        {
             ac.enabled = true;
             foreach (var bc in BowCols)
+            {
                 Physics.IgnoreCollision(ac, bc);
+            }
         }
 
         // setup arrow collision and move speed
         newArrow.GetComponent<Rigidbody>().isKinematic = false;
         newArrow.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
-        newArrow.GetComponent<Rigidbody>().velocity = currentPull * powerMultiplier * 
-            currentArrow.transform.TransformDirection(direction);
+        newArrow.GetComponent<Rigidbody>().velocity = currentPull * powerMultiplier * currentArrow.transform.TransformDirection(direction);
 
         newArrow.GetComponent<Arrow>().InFlight();
 
         // apply coating particle effect on duplicated arrow
         if (coatingColor == Color.clear)
+        {
             newArrow.GetComponent<Arrow>().ps.Stop();
+        }
         else
+        {
             newArrow.GetComponent<Arrow>().Fired(coatingColor);
+        }
     }
 
     private void ReleaseArrow()
     {
         if (stringControl)
+        {
             stringControl.ForceRelease();
+        }
     }
 
     private void AimArrow()
@@ -279,7 +307,8 @@ public class BowAim : MonoBehaviour
         currentArrow.transform.localPosition = Vector3.zero;
         Vector3 lookDir = handle.nockSide.position;
 
-        if (isShaking) {
+        if (isShaking)
+        {
             var x = (Mathf.PerlinNoise(arrowSeedX, Time.time * shakeSpeed) - 0.5f) * shakeMultiplier;
             var y = (Mathf.PerlinNoise(arrowSeedY, Time.time * shakeSpeed) - 0.5f) * shakeMultiplier;
             lookDir += new Vector3(x, y, 0);
@@ -291,10 +320,10 @@ public class BowAim : MonoBehaviour
     private void AimBow()
     {
         Vector3 lookDir = holdControl.transform.position - stringControl.transform.position;
-        Vector3 upDir = holdControl.transform.TransformDirection(
-            Quaternion.Euler(-snapHandle.transform.localEulerAngles) * Vector3.up);
+        Vector3 upDir = holdControl.transform.TransformDirection(Quaternion.Euler(-snapHandle.transform.localEulerAngles) * Vector3.up);
 
-        if (isShaking) {
+        if (isShaking)
+        {
             var x = (Mathf.PerlinNoise(bowSeedX, Time.time * shakeSpeed) - 0.5f) * shakeMultiplier;
             var y = (Mathf.PerlinNoise(bowSeedY, Time.time * shakeSpeed) - 0.5f) * shakeMultiplier;
             lookDir += new Vector3(x, y, 0);
@@ -311,43 +340,58 @@ public class BowAim : MonoBehaviour
         bow.SetPullAnimation(currentPull);
 
         // controllers vibrate when pulling
-        if (currentPull.ToString("F2") != previousPull.ToString("F2")) {
-            if (VRTK_DeviceFinder.IsControllerRightHand(holdControl.gameObject)) {
+        if (currentPull.ToString("F2") != previousPull.ToString("F2"))
+        {
+            if (VRTK_DeviceFinder.IsControllerRightHand(holdControl.gameObject))
+            {
                 OVRInput.SetControllerVibration(.1f, bowVibration, OVRInput.Controller.RTouch);
                 OVRInput.SetControllerVibration(.1f, stringVibration, OVRInput.Controller.LTouch);
-            } else {
+            }
+            else
+            {
                 OVRInput.SetControllerVibration(.1f, stringVibration, OVRInput.Controller.RTouch);
                 OVRInput.SetControllerVibration(.1f, bowVibration, OVRInput.Controller.LTouch);
             }
             isVibrating = true;
-        } else if (isVibrating) {
+        }
+        else if (isVibrating)
+        {
             OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
             OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
         }
 
         // pull and hold to charge
-        if (currentPull > chargeStartDist) {
-            if (previousPull < chargeStartDist) {   // start charging
+        if (currentPull > chargeStartDist)
+        {
+            if (previousPull < chargeStartDist)   // start charging
+            {
                 bow.PlayStringStretchSound(0.2f);
                 bow.PlayPullSound(chargeLevel, 0.5f, 0.2f);
             }
-            if (chargeLevel < maxChargeLevel) {     // continue charging till max
+            if (chargeLevel < maxChargeLevel)     // continue charging till max
+            {
                 chargeHoldTimer += Time.deltaTime;
-                if (chargeHoldTimer > chargeHoldTime) {
+                if (chargeHoldTimer > chargeHoldTime)
+                {
                     chargeHoldTimer = 0f;
                     chargeLevel += 1;
                     bow.PlayPullSound(chargeLevel, 0.5f, 0.2f);
                     // charge level up effects
-                    if (chargeLevel == 2) {
+                    if (chargeLevel == 2)
+                    {
                         bow.GlowPulse(1, 10, 5, false);
                         currentArrow.GetComponent<Arrow>().PlayAirConeSound(0.2f);
-                    } else {    // chargeLevel == 3
+                    }
+                    else    // chargeLevel == 3
+                    {
                         bow.GlowPulse(1, 30, 5, true);
                         isShaking = true;
                     }
                 }
             }
-        } else if (previousPull > chargeStartDist) {    // cancel charging
+        }
+        else if (previousPull > chargeStartDist)    // cancel charging
+        {
             chargeHoldTimer = 0f;
             chargeLevel = 1;
             bow.StopGlow();

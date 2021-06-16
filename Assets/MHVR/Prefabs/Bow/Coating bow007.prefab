@@ -15,14 +15,12 @@ GameObject:
   - component: {fileID: 9112815624336793447}
   - component: {fileID: 7113666061073774166}
   - component: {fileID: 8858962484525654319}
-  - component: {fileID: 4952183623661142339}
-  - component: {fileID: 7390031212313677660}
   - component: {fileID: 4663258785079211556}
   - component: {fileID: 7426741338679221559}
   - component: {fileID: 8659613017537672169}
   - component: {fileID: 5707135278225343461}
   m_Layer: 0
-  m_Name: Coating007
+  m_Name: Coating bow007
   m_TagString: Coating
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +140,7 @@ MonoBehaviour:
   grabOverrideButton: 0
   allowedGrabControllers: 0
   grabAttachMechanicScript: {fileID: 8858962484525654319}
-  secondaryGrabActionScript: {fileID: 4952183623661142339}
+  secondaryGrabActionScript: {fileID: 0}
   isUsable: 0
   holdButtonToUse: 0
   useOnlyIfGrabbed: 0
@@ -170,105 +168,6 @@ MonoBehaviour:
   throwVelocityWithAttachDistance: 0
   throwMultiplier: 1
   onGrabCollisionDelay: 0
---- !u!114 &4952183623661142339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5253060177290214899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18055ba762aa3994f9c10208cd088bc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7390031212313677660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5253060177290214899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f96f1837f21d4bf9a77ff61e7b81f20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnObjectEnable:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectDisable:
-    m_PersistentCalls:
-      m_Calls: []
-  OnNearTouch:
-    m_PersistentCalls:
-      m_Calls: []
-  OnNearUntouch:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTouch:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7426741338679221559}
-        m_MethodName: On
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnUntouch:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7426741338679221559}
-        m_MethodName: Off
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnGrab:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7426741338679221559}
-        m_MethodName: Off
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnUngrab:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUse:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUnuse:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEnterSnapDropZone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnExitSnapDropZone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSnapToDropZone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUnsnapFromDropZone:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4663258785079211556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aff57d0ad810a1429414064fd34a76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interact: {fileID: 7113666061073774166}
   outline: {fileID: 4663258785079211556}
 --- !u!114 &8659613017537672169
 MonoBehaviour:
@@ -313,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  quantity: 3
+  quantity: 10
   bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
 --- !u!82 &5707135278225343461
 AudioSource:

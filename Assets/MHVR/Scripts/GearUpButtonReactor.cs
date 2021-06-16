@@ -22,9 +22,12 @@ public class GearUpButtonReactor : MonoBehaviour
 
     protected virtual void MaxLimitReached(object sender, ControllableEventArgs e)
     {
-        if (avatar.equip == null) {
+        if (avatar.equip == null)
+        {
             Equip();
-        } else {
+        }
+        else
+        {
             Unequip();
         }
     }
@@ -37,7 +40,8 @@ public class GearUpButtonReactor : MonoBehaviour
         equipInstance.transform.localPosition = Vector3.zero;
         equipInstance.transform.localRotation = Quaternion.identity;
 
-        if (displayText != null) {
+        if (displayText != null)
+        {
             displayText.text = "1";
         }
     }
@@ -45,17 +49,22 @@ public class GearUpButtonReactor : MonoBehaviour
     private void Unequip()
     {
         VRTK_SnapDropZone[] snapDropZones = avatar.equip.GetComponentsInChildren<VRTK_SnapDropZone>();
-        foreach (var sdz in snapDropZones) {
+        foreach (var sdz in snapDropZones)
+        {
             var dsiObj = sdz.defaultSnappedInteractableObject;
-            if (dsiObj != null) {
+            if (dsiObj != null)
+            {
                 if (dsiObj.IsGrabbed())
+                {
                     dsiObj.GetGrabbingObject().GetComponent<VRTK_InteractGrab>().ForceRelease();
+                }
                 Destroy(dsiObj.gameObject);
             }
         }
         Destroy(avatar.equip);
 
-        if (displayText != null) {
+        if (displayText != null)
+        {
             displayText.text = "0";
         }
     }
