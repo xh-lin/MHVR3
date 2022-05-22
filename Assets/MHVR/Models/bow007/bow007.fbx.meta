@@ -77,9 +77,9 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: PlayFoldSound
+        functionName: PlayFoldAudio
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 7164598af73a0604897b564056da9641,
+        objectReferenceParameter: {fileID: 11500000, guid: 063590c427e5e08418ed6676a83c8885,
           type: 3}
         floatParameter: 0.3
         intParameter: 0
@@ -172,17 +172,17 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: PlayOpenSound
+        functionName: PlayOpenAudio
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 7164598af73a0604897b564056da9641,
+        objectReferenceParameter: {fileID: 11500000, guid: 063590c427e5e08418ed6676a83c8885,
           type: 3}
         floatParameter: 0.3
         intParameter: 0
         messageOptions: 0
       - time: 0.33111852
-        functionName: PlayStringStretchSound
+        functionName: PlayStringStretchAudio
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 7164598af73a0604897b564056da9641,
+        objectReferenceParameter: {fileID: 11500000, guid: 063590c427e5e08418ed6676a83c8885,
           type: 3}
         floatParameter: 0.2
         intParameter: 0

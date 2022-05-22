@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7164598af73a0604897b564056da9641
+guid: 063590c427e5e08418ed6676a83c8885
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - weaponSFX: {instanceID: 0}
+  - weaponSFX: {fileID: 11400000, guid: abe221a601bfce647b5b67eeb3697b81, type: 2}
   - bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
   - bowVisualSFX: {fileID: 11400000, guid: aa7b731c1329d444ea807c85dd8c04e0, type: 2}
   executionOrder: 0

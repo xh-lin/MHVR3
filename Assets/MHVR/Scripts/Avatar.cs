@@ -20,9 +20,8 @@ public class Avatar : MonoBehaviour
     {
         // setup constraint to follow the VR headset
         yield return new WaitForEndOfFrame();
-        Transform headset = FindObjectsOfType<VRTK_SDKManager>()[0].loadedSetup.actualHeadset.transform;
         ConstraintSource sourceHeadset = new ConstraintSource {
-            sourceTransform = headset,
+            sourceTransform = VRTK_DeviceFinder.HeadsetTransform(),
             weight = 1f
         };
         head.GetComponent<ParentConstraint>().AddSource(sourceHeadset);

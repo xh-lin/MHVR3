@@ -5,36 +5,42 @@ using VRTK;
 
 public class CoatingSnapManager : MonoBehaviour
 {
-    public VRTK_SnapDropZone VRTK_SnapDropZone;
-    // for the notch on the bow
+    [Tooltip("For bow's coating notch.")]
     public BowAim aim;
 
+    private VRTK_SnapDropZone snapDropZone;
     private Collider objectCollider;
-    private Coating coating;
+    private BowCoating coating;
 
-    public void Snap()
+    public void Start()
     {
-        objectCollider = VRTK_SnapDropZone.GetCurrentSnappedObject().GetComponent<MeshCollider>();
-        objectCollider.isTrigger = true;
+        snapDropZone = GetComponent<VRTK_SnapDropZone>();
+
+        snapDropZone.ObjectSnappedToDropZone += Snapped;
+        snapDropZone.ObjectUnsnappedFromDropZone += Unsnapped;
     }
 
-    public void Unsnap()
+    protected virtual void Snapped(object sender, SnapDropZoneEventArgs e)
+    {
+        objectCollider = snapDropZone.GetCurrentSnappedObject().GetComponent<MeshCollider>();
+        objectCollider.isTrigger = true;
+
+        coating = snapDropZone.GetCurrentSnappedObject().GetComponent<BowCoating>();
+        coating.PlayApplyAudio(0.3f);
+        if (aim)
+        {
+            aim.coating = coating;
+        }
+    }
+
+    protected virtual void Unsnapped(object sender, SnapDropZoneEventArgs e)
     {
         objectCollider.isTrigger = false;
-    }
 
-    public void Apply()
-    {
-        Snap();
-        coating = VRTK_SnapDropZone.GetCurrentSnappedObject().GetComponent<Coating>();
-        coating.PlayApplySound(0.3f);
-        aim.coating = coating;
-    }
-
-    public void Remove()
-    {
-        Unsnap();
-        coating.PlayRemoveSound(0.3f);
-        aim.coating = null;
+        coating.PlayRemoveAudio(0.3f);
+        if (aim)
+        {
+            aim.coating = null;
+        }
     }
 }

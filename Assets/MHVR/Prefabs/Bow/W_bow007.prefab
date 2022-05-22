@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1681171743163332802}
   m_Layer: 0
-  m_Name: bow007
+  m_Name: W_bow007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,6 @@ GameObject:
   - component: {fileID: 1681171743223084617}
   - component: {fileID: 1681171743223084616}
   - component: {fileID: 1681171743223084619}
-  - component: {fileID: 1681171743223084618}
   - component: {fileID: 1681171743223084621}
   - component: {fileID: 1681171743223084620}
   m_Layer: 0
@@ -306,52 +305,6 @@ MonoBehaviour:
   unhighlightOnDisable: 1
   emissionDarken: 50
   customMaterial: {fileID: 2100000, guid: d991b5fe16a965f42a62d21959fd4844, type: 2}
---- !u!114 &1681171743223084618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681171743223084622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfac5512b3c9b7e40b8384efa162bf18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnObjectEnteredSnapDropZone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectExitedSnapDropZone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectSnappedToDropZone:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1681171743223084621}
-        m_MethodName: Apply
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnObjectUnsnappedFromDropZone:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1681171743223084621}
-        m_MethodName: Remove
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1681171743223084621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,8 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ee99237ec1d024bba2691b29209868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VRTK_SnapDropZone: {fileID: 1681171743223084617}
-  aim: {fileID: 7520115334899842570}
+  aim: {fileID: 9143354449665549891}
 --- !u!82 &1681171743223084620
 AudioSource:
   m_ObjectHideFlags: 0
@@ -824,7 +776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1681171744734130645}
-  - component: {fileID: 1681171744734130642}
+  - component: {fileID: 2823629797672343205}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -847,7 +799,7 @@ Transform:
   m_Father: {fileID: 7140177526765937847}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1681171744734130642
+--- !u!114 &2823629797672343205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -856,12 +808,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1681171744734130644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3079037fd0c8da34cb4e7bd3708f7170, type: 3}
+  m_Script: {fileID: 11500000, guid: c66988dbb06b088439bef73fff0c2461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   arrowNockingPoint: {fileID: 1681171743344990743}
-  aim: {fileID: 7520115334899842570}
   nockSide: {fileID: 1681171743886506756}
+  aim: {fileID: 9143354449665549891}
 --- !u!1 &1699908959093433745
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,9 +826,9 @@ GameObject:
   - component: {fileID: 8561743185981028214}
   - component: {fileID: 8900848315879936069}
   - component: {fileID: 1036957992898640881}
+  - component: {fileID: 5672571511550314611}
   - component: {fileID: 6743940237868630488}
   - component: {fileID: 6411787335502350018}
-  - component: {fileID: 5672571511550314611}
   m_Layer: 0
   m_Name: NockingPointArrowSpawner
   m_TagString: Untagged
@@ -958,44 +910,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6743940237868630488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699908959093433745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
---- !u!114 &6411787335502350018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699908959093433745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 355ed2c95308520428e63f7f6fc0f9d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnDelay: 0
-  vibrationIntensity: 0.2
-  vibrationDuration: 0.2
-  autoNocking: 1
-  handle: {fileID: 1681171744734130642}
-  arrowPrefab: {fileID: 3386058192184997742, guid: 8a8030ae355095442a2d1a4cf584852b,
-    type: 3}
-  bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
 --- !u!82 &5672571511550314611
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1092,6 +1006,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6743940237868630488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699908959093433745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &6411787335502350018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699908959093433745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355ed2c95308520428e63f7f6fc0f9d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDelay: 0
+  vibrationIntensity: 0.2
+  vibrationDuration: 0.2
+  arrowObjectPrefab: {fileID: 5917464161598191935, guid: 96ee0f48b7353b24fac35564ef290ad3,
+    type: 3}
+  bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
+  autoNocking: 1
+  handle: {fileID: 2823629797672343205}
 --- !u!1 &2090325407106601521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,12 +1958,12 @@ GameObject:
   - component: {fileID: 7140177526765937847}
   - component: {fileID: 3888626787439197901}
   - component: {fileID: 7520115334899842577}
+  - component: {fileID: 7520115334899842571}
   - component: {fileID: 7520115334899842576}
   - component: {fileID: 7520115334899842579}
   - component: {fileID: 7520115334899842582}
-  - component: {fileID: 7520115334899842570}
-  - component: {fileID: 7520115334899842568}
-  - component: {fileID: 7520115334899842571}
+  - component: {fileID: 9143354449665549891}
+  - component: {fileID: 4565238703070965835}
   m_Layer: 0
   m_Name: Bow007 Interactable
   m_TagString: Bow
@@ -2077,120 +2029,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7520115334899842576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7520115334899842573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3abaf4521bf2344ea21ed3020b98eb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  disableWhenIdle: 1
-  allowedNearTouchControllers: 0
-  allowedTouchControllers: 0
-  ignoredColliders: []
-  isGrabbable: 1
-  holdButtonToGrab: 0
-  stayGrabbedOnTeleport: 1
-  validDrop: 2
-  grabOverrideButton: 0
-  allowedGrabControllers: 0
-  grabAttachMechanicScript: {fileID: 7520115334899842579}
-  secondaryGrabActionScript: {fileID: 0}
-  isUsable: 0
-  holdButtonToUse: 0
-  useOnlyIfGrabbed: 1
-  pointerActivatesUseAction: 0
-  useOverrideButton: 0
-  allowedUseControllers: 0
-  objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  usingState: 0
---- !u!114 &7520115334899842579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7520115334899842573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ec2ac476f2fc9a45a4e69712580a603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  precisionGrab: 0
-  rightSnapHandle: {fileID: 1681171744543262367}
-  leftSnapHandle: {fileID: 0}
-  throwVelocityWithAttachDistance: 0
-  throwMultiplier: 1
-  onGrabCollisionDelay: 0
---- !u!114 &7520115334899842582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7520115334899842573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
---- !u!114 &7520115334899842570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7520115334899842573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c31dbf9919e2c46b220554a99eff7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerMultiplier: 30
-  pullMultiplier: 1
-  pullOffset: 0.214
-  maxPullDistance: 1
-  bowVibration: 0.1
-  stringVibration: 0.2
-  shakeSpeed: 10
-  shakeMultiplier: 0.01
-  horizontalThreshold: 0.85
-  snapHandle: {fileID: 1681171744543262366}
-  arrowPrefab: {fileID: 3386058192184997742, guid: 8a8030ae355095442a2d1a4cf584852b,
-    type: 3}
-  progressRingImage: {fileID: 4690473006789333634}
-  nockingPointArrowSpawner: {fileID: 6411787335502350018}
-  bow: {fileID: 0}
-  coating: {fileID: 0}
---- !u!114 &7520115334899842568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7520115334899842573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7164598af73a0604897b564056da9641, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touchVibration: 0.2
-  vibrationDuration: 0.2
-  weaponSFX: {fileID: 11400000, guid: abe221a601bfce647b5b67eeb3697b81, type: 2}
-  bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
-  bowVisualSFX: {fileID: 11400000, guid: aa7b731c1329d444ea807c85dd8c04e0, type: 2}
 --- !u!82 &7520115334899842571
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2287,6 +2125,113 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7520115334899842576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520115334899842573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3abaf4521bf2344ea21ed3020b98eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableWhenIdle: 1
+  allowedNearTouchControllers: 0
+  allowedTouchControllers: 0
+  ignoredColliders: []
+  isGrabbable: 1
+  holdButtonToGrab: 0
+  stayGrabbedOnTeleport: 1
+  validDrop: 2
+  grabOverrideButton: 0
+  allowedGrabControllers: 0
+  grabAttachMechanicScript: {fileID: 7520115334899842579}
+  secondaryGrabActionScript: {fileID: 0}
+  isUsable: 0
+  holdButtonToUse: 0
+  useOnlyIfGrabbed: 1
+  pointerActivatesUseAction: 0
+  useOverrideButton: 0
+  allowedUseControllers: 0
+  objectHighlighter: {fileID: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
+  usingState: 0
+--- !u!114 &7520115334899842579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520115334899842573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec2ac476f2fc9a45a4e69712580a603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  precisionGrab: 0
+  rightSnapHandle: {fileID: 1681171744543262367}
+  leftSnapHandle: {fileID: 0}
+  throwVelocityWithAttachDistance: 0
+  throwMultiplier: 1
+  onGrabCollisionDelay: 0
+--- !u!114 &7520115334899842582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520115334899842573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &9143354449665549891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520115334899842573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d370d02a0634a4a958690a6aa56099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pullOffset: 0.214
+  pullMultiplier: 1
+  progressRingImage: {fileID: 4690473006789333634}
+  nockingPointArrowSpawner: {fileID: 6411787335502350018}
+  snapPoint: {fileID: 1681171744543262366}
+  arrowProjectilePrefab: {fileID: 6624106107648943762, guid: aa1af8899097d3a4986eeb3888b56ccb,
+    type: 3}
+  bow: {fileID: 0}
+  coating: {fileID: 0}
+--- !u!114 &4565238703070965835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520115334899842573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 063590c427e5e08418ed6676a83c8885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchVibration: 0.2
+  vibrationDuration: 0.2
+  weaponSFX: {fileID: 11400000, guid: abe221a601bfce647b5b67eeb3697b81, type: 2}
+  bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
+  bowVisualSFX: {fileID: 11400000, guid: aa7b731c1329d444ea807c85dd8c04e0, type: 2}
 --- !u!1 &8035637306202849922
 GameObject:
   m_ObjectHideFlags: 0

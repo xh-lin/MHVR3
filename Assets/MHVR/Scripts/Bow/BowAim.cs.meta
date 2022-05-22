@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 54c31dbf9919e2c46b220554a99eff7a
+guid: f8d370d02a0634a4a958690a6aa56099
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - snapHandle: {instanceID: 0}
-  - arrowPrefab: {fileID: 3386058192184997742, guid: 8a8030ae355095442a2d1a4cf584852b,
-      type: 3}
   - progressRingImage: {instanceID: 0}
   - nockingPointArrowSpawner: {instanceID: 0}
+  - snapPoint: {instanceID: 0}
+  - arrowProjectilePrefab: {fileID: 6624106107648943762, guid: aa1af8899097d3a4986eeb3888b56ccb,
+      type: 3}
   - bow: {instanceID: 0}
   - coating: {instanceID: 0}
   executionOrder: 0

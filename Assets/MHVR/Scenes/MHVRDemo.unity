@@ -6864,7 +6864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllable: {fileID: 1811468770163272370}
-  equipPrefab: {fileID: 487687537278831076, guid: 01abe39936f86144da66a97e41b400c5,
+  equipPrefab: {fileID: 487687537278831076, guid: e6ebef2208890174fb5bc9682d1b868f,
     type: 3}
   displayText: {fileID: 1811468770401712228}
 --- !u!1 &1811468770401712226

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Sound Bank", menuName = "Sound Bank")]
-public class SoundBank : ScriptableObject
+public class AudioBank : ScriptableObject
 {
     [System.Serializable]
     public class Audio
@@ -13,5 +13,5 @@ public class SoundBank : ScriptableObject
     }
     
     public string description;
-    public Audio[] audio;
+    public Audio[] audios;
 }

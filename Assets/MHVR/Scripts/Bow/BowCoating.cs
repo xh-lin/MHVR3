@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coating : MonoBehaviour
+public class BowCoating : MonoBehaviour
 {
     public enum Type { CloseRange, Power, Poison, Paralysis, Sleep, Blast };
 
     public Type type;
     [Range(0, 50)]
     public int quantity = 20;
-    public SoundBank bowPhysicalSFX;
+    public AudioBank bowPhysicalSFX;
 
     private AudioSource audioSource;
     private Renderer[] bowRenderers;
-    private Dictionary<Type, Color> colorOfType = new Dictionary<Type, Color>()
+    private readonly Dictionary<Type, Color> kColorOfTypes = new Dictionary<Type, Color>()
     {
         { Type.CloseRange, new Color(1f, 1f, 1f) },
         { Type.Power, new Color(0.8666667f, 0.3019608f, 0.3764706f) },
@@ -30,7 +30,7 @@ public class Coating : MonoBehaviour
 
         foreach (var renderer in bowRenderers)
         {
-            renderer.material.SetColor("_coatingColor", colorOfType[type]);
+            renderer.material.SetColor("_coatingColor", kColorOfTypes[type]);
         }
     }
 
@@ -39,21 +39,29 @@ public class Coating : MonoBehaviour
         if (quantity > 0)
         {
             quantity--;
-            return colorOfType[type];
+            return kColorOfTypes[type];
         }
-        return Color.clear;
+        else
+        {
+            // empty
+            foreach (var renderer in bowRenderers)
+            {
+                renderer.material.SetColor("_coatingColor", Color.black);
+            }
+            return Color.clear;
+        }
     }
 
     // === Play sound
 
-    public void PlayApplySound(float volumeScale)
+    public void PlayApplyAudio(float volumeScale)
     {
-        audioSource.PlayOneShot(bowPhysicalSFX.audio[30].clip, volumeScale);
+        audioSource.PlayOneShot(bowPhysicalSFX.audios[30].clip, volumeScale);
     }
 
-    public void PlayRemoveSound(float volumeScale)
+    public void PlayRemoveAudio(float volumeScale)
     {
-        audioSource.PlayOneShot(bowPhysicalSFX.audio[4].clip, volumeScale);
+        audioSource.PlayOneShot(bowPhysicalSFX.audios[4].clip, volumeScale);
     }
 
     // ===

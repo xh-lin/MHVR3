@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: def5bb413b8124745814ac1125b13bae
+guid: b612beca0b0d2d447a265b9f1fe6ee9b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
   - bowVisualSFX: {fileID: 11400000, guid: aa7b731c1329d444ea807c85dd8c04e0, type: 2}
-  - ps: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

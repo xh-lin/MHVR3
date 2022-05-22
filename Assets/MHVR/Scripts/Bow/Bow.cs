@@ -1,13 +1,7 @@
-﻿/*
- *  It controls bow animatoin, audio and effect.
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
-
-
 
 public class Bow : MonoBehaviour
 {
@@ -15,53 +9,40 @@ public class Bow : MonoBehaviour
     public float touchVibration = 0.2f;
     [Tooltip("In seconds.")]
     public float vibrationDuration = 0.2f;
-    public SoundBank weaponSFX;
-    public SoundBank bowPhysicalSFX;
-    public SoundBank bowVisualSFX;
+    public AudioBank weaponSFX;
+    public AudioBank bowPhysicalSFX;
+    public AudioBank bowVisualSFX;
 
     private BowAim aim;
-    private AudioSource source;
+    private AudioSource audioSource;
     private Animator animator;
-    private Rigidbody rigidBody;
-    private Renderer[] bowRenderers;
+    private new Rigidbody rigidbody;
+    private Renderer[] renderers;
     private VRTK_InteractableObject interact;
     private Outline outline;
 
-    private int[] shotSounds;
-    private int[] setArrowSounds;
-    private int[] PullOneSounds;
-    private int shotSoundsIdx;
-    private int setArrowSoundsIdx;
-    private int PullOneSoundsIdx;
+    private readonly int[] kSetArrowAudios = { 11, 12, 21 };
 
     private void Awake()
     {
         aim = GetComponent<BowAim>();
-        source = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
-        rigidBody = GetComponent<Rigidbody>();
-        bowRenderers = GetComponentsInChildren<Renderer>();
+        rigidbody = GetComponent<Rigidbody>();
+        renderers = GetComponentsInChildren<Renderer>();
         interact = GetComponent<VRTK_InteractableObject>();
         outline = GetComponent<Outline>();
 
         // set to folded animation
-        animator.enabled = true;    
-        rigidBody.isKinematic = true;
+        animator.enabled = true;
+        rigidbody.isKinematic = true;
         outline.enabled = false;
-
-        // initialize audio variables
-        shotSounds = new int[] { 2, 4 };
-        setArrowSounds = new int[] { 11, 12, 21 };
-        PullOneSounds = new int[] { 3, 24 };
-        shotSoundsIdx = 0;
-        setArrowSoundsIdx = 0;
-        PullOneSoundsIdx = 0;
     }
 
     private void Start()
     {
         animator.enabled = false;
-        rigidBody.isKinematic = false;
+        rigidbody.isKinematic = false;
 
         interact.InteractableObjectTouched += Touch;
         interact.InteractableObjectUntouched += Untouch;
@@ -80,6 +61,13 @@ public class Bow : MonoBehaviour
     }
 
     // === Glow
+
+    public void StopGlow()
+    {
+        StopAllCoroutines();
+        GlowSetMuliplier(0);
+        GlowBreath(false);
+    }
 
     public void GlowPulse(float minMult, float maxMult, float interpolation, bool breathAfter)
     {
@@ -104,96 +92,89 @@ public class Bow : MonoBehaviour
         GlowBreath(breathAfter);
     }
 
-    public void GlowSetMuliplier(float mult)
+    private void GlowSetMuliplier(float mult)
     {
-        foreach (var renderer in bowRenderers)
+        foreach (var renderer in renderers)
         {
             renderer.material.SetFloat("_glowColorMultiplier", mult);
         }
     }
 
-    public void GlowBreath(bool b)
+    private void GlowBreath(bool b)
     {
-        foreach (var renderer in bowRenderers)
+        foreach (var renderer in renderers)
         {
             renderer.material.SetInt("_isBreath", b ? 1 : 0);
         }
     }
 
-    public void StopGlow()
+    // === Audio
+
+    public void PlayStringStretchAudio(float volumeScale)
     {
-        StopAllCoroutines();
-        GlowSetMuliplier(0);
-        GlowBreath(false);
+        audioSource.PlayOneShot(weaponSFX.audios[1].clip, volumeScale);
     }
 
-    // === Play sound (Called by other scripts or animation events)
-
-    public void PlayStringStretchSound(float volumeScale)
+    public void PlaySheathAudio(float volumeScale)
     {
-        source.PlayOneShot(weaponSFX.audio[1].clip, volumeScale);
+        audioSource.PlayOneShot(weaponSFX.audios[3].clip, volumeScale);
     }
 
-    public void PlaySheathSound(float volumeScale)
+    public void PlayFoldAudio(float volumeScale)
     {
-        source.PlayOneShot(weaponSFX.audio[3].clip, volumeScale);
+        audioSource.PlayOneShot(weaponSFX.audios[5].clip, volumeScale);
     }
 
-    public void PlayFoldSound(float volumeScale)
+    public void PlayOpenAudio(float volumeScale)
     {
-        source.PlayOneShot(weaponSFX.audio[5].clip, volumeScale);
+        audioSource.PlayOneShot(weaponSFX.audios[6].clip, volumeScale);
     }
 
-    public void PlayOpenSound(float volumeScale)
+    public void PlayShotAudio(float volumeScale)
     {
-        source.PlayOneShot(weaponSFX.audio[6].clip, volumeScale);
+        var shotAudio = Random.value > 0.5f ? 2 : 4;
+        audioSource.PlayOneShot(weaponSFX.audios[shotAudio].clip, volumeScale);
     }
 
-    public void PlayShotSound(float volumeScale)
+    public void PlaySetArrowAudio(float volumeScale)
     {
-        source.PlayOneShot(weaponSFX.audio[shotSounds[shotSoundsIdx]].clip, volumeScale);
-        shotSoundsIdx = (shotSoundsIdx + 1) % shotSounds.Length;
+        var setArrowAudio = kSetArrowAudios[Random.Range(0, kSetArrowAudios.Length)];
+        audioSource.PlayOneShot(bowPhysicalSFX.audios[setArrowAudio].clip, volumeScale);
     }
 
-    public void PlaySetArrowSound(float volumeScale)
-    {
-        source.PlayOneShot(bowPhysicalSFX.audio[setArrowSounds[setArrowSoundsIdx]].clip, volumeScale);
-        setArrowSoundsIdx = (setArrowSoundsIdx + 1) % setArrowSounds.Length;
-    }
-
-    public void PlayPullSound(int chargeLevel, float volumePhysicalSFX, float volumeVisualSFX)
+    public void PlayPullAudio(int chargeLevel, float volumePhysicalSFX, float volumeVisualSFX)
     {
         switch (chargeLevel)
         {
             case 1:
-                source.PlayOneShot(bowPhysicalSFX.audio[PullOneSounds[PullOneSoundsIdx]].clip, volumePhysicalSFX);
-                PullOneSoundsIdx = (PullOneSoundsIdx + 1) % PullOneSounds.Length;
+                var pullAudioOne = Random.value > 0.5f ? 3 : 24;
+                audioSource.PlayOneShot(bowPhysicalSFX.audios[pullAudioOne].clip, volumePhysicalSFX);
                 break;
             case 2:
-                source.PlayOneShot(bowPhysicalSFX.audio[18].clip, volumePhysicalSFX);
-                source.PlayOneShot(bowVisualSFX.audio[51].clip, volumeVisualSFX);
+                audioSource.PlayOneShot(bowPhysicalSFX.audios[18].clip, volumePhysicalSFX);
+                audioSource.PlayOneShot(bowVisualSFX.audios[51].clip, volumeVisualSFX);
                 break;
             case 3:
             default:
-                source.PlayOneShot(bowVisualSFX.audio[42].clip, volumeVisualSFX);
+                audioSource.PlayOneShot(bowVisualSFX.audios[42].clip, volumeVisualSFX);
                 break;
         }
-        PlayPullHoldSound(volumePhysicalSFX);
+        PlayPullHoldAudio(volumePhysicalSFX);
     }
 
-    public void PlayPullHoldSound(float volumeScale)
+    public void PlayPullHoldAudio(float volumeScale)
     {
-        source.clip = bowPhysicalSFX.audio[22].clip;
-        source.loop = true;
-        source.volume = volumeScale;
-        source.Play();
+        audioSource.clip = bowPhysicalSFX.audios[22].clip;
+        audioSource.loop = true;
+        audioSource.volume = volumeScale;
+        audioSource.Play();
     }
 
-    public void StopSound()
+    public void StopAudio()
     {
-        if (source.isPlaying)
+        if (audioSource.isPlaying)
         {
-            source.Stop();
+            audioSource.Stop();
         }
     }
 

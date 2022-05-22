@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: bow007 Weapon SFX
   m_EditorClassIdentifier: 
   description: wp_bow_007
-  audio:
+  audios:
   - clip: {fileID: 0}
-    description: 
+    description: Discard
   - clip: {fileID: 8300000, guid: 40b3d0b9c00ca1f4484fabc913dd9019, type: 3}
-    description: string stretch
+    description: 'pull string (when open/start of charge/call 5 times when dragon
+      piercer charge) '
   - clip: {fileID: 8300000, guid: d63bda8bb9b5b514187a121ec08b4bd8, type: 3}
-    description: release [1/2]
+    description: 'arrow shot/quick shot/dragon piercer [1/2] '
   - clip: {fileID: 8300000, guid: e4d527453822c9949815fced13aed24b, type: 3}
-    description: sheath
+    description: 'put on back '
   - clip: {fileID: 8300000, guid: c130e2061a72aa547bcd45c070437536, type: 3}
-    description: release [2/2]
+    description: 'arrow shot/quick shot/dragon piercer [2/2] '
   - clip: {fileID: 8300000, guid: 50d831f8faf743247a64b89a4cdf9a08, type: 3}
-    description: fold
+    description: 'fold '
   - clip: {fileID: 8300000, guid: 216e797e6c3415c409062022538254b6, type: 3}
-    description: open
+    description: 'open '

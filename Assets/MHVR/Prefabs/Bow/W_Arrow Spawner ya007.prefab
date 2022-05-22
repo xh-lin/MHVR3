@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 9060672279121288945}
   - component: {fileID: 1822624813575392805}
   m_Layer: 0
-  m_Name: ya007 Arrow Spawner
+  m_Name: W_Arrow Spawner ya007
   m_TagString: Quiver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,11 +237,11 @@ MonoBehaviour:
   spawnDelay: 0.2
   vibrationIntensity: 0.2
   vibrationDuration: 0.2
-  autoNocking: 0
-  handle: {fileID: 0}
-  arrowPrefab: {fileID: 3386058192184997742, guid: 8a8030ae355095442a2d1a4cf584852b,
+  arrowObjectPrefab: {fileID: 5917464161598191935, guid: 96ee0f48b7353b24fac35564ef290ad3,
     type: 3}
   bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
+  autoNocking: 0
+  handle: {fileID: 0}
 --- !u!82 &1822624813575392805
 AudioSource:
   m_ObjectHideFlags: 0

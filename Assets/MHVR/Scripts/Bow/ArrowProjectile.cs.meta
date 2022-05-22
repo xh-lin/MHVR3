@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: c87987c7c9e79cb4cb32112c98dc5139
+guid: 6f3b32313298bde41ad3f92dc7768abc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - VRTK_SnapDropZone: {instanceID: 0}
-  - bowPhysicalSFX: {fileID: 11400000, guid: 05f564bf76b3e804f8f798ddee2fbeb9, type: 2}
+  - bowVisualSFX: {fileID: 11400000, guid: aa7b731c1329d444ea807c85dd8c04e0, type: 2}
+  - ps: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

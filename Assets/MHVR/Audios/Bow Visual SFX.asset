@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bow Visual SFX
   m_EditorClassIdentifier: 
   description: wp11_bow_epvsp_shell
-  audio:
+  audios:
   - clip: {fileID: 0}
-    description: 
+    description: Discard
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
@@ -37,13 +37,13 @@ MonoBehaviour:
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: 9ef15ce184644bc4c8f8ecb4bf44e852, type: 3}
-    description: arrow shot charge max
+    description: 'Shoot charge max arrow '
   - clip: {fileID: 8300000, guid: 597044cfed9124a4599f5e468ec01dbd, type: 3}
-    description: arrow shot
+    description: 'Arrow shot '
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: 01263d6225442d742908f90f5c1cf498, type: 3}
-    description: arrow hits dirt/wall [1/4]
+    description: 'Arrow hits dirt/wall [1/4] '
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
@@ -51,9 +51,9 @@ MonoBehaviour:
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: 4389afa9a231bad42b0a254a09a386ed, type: 3}
-    description: arrow hits dirt/wall [2/4]
+    description: 'Arrow hits dirt/wall [2/4] '
   - clip: {fileID: 8300000, guid: 88afb269b9f9a9d40a237f4a8cb53e81, type: 3}
-    description: charge air cone
+    description: 'Charge air cone '
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: 2d9037fe89c434e419c0ccb81517b2d7, type: 3}
-    description: quick/spread shot
+    description: 'Quick shot arrows shot '
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: aff31ec70741bb2419e2b35552653be3, type: 3}
-    description: charge max
+    description: 'Pull charge max hit '
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
@@ -117,15 +117,15 @@ MonoBehaviour:
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: acfb708dbd59a5d4c81e0e80a1b89111, type: 3}
-    description: charge two
+    description: 'Pull charge level 2 hit '
   - clip: {fileID: 8300000, guid: 3905bd209c6341d4f81abbea75408534, type: 3}
-    description: arrow hits dirt/wall [3/4]
+    description: 'Arrow hits dirt/wall [3/4] '
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: 6a88e9bda05be344f866975522b57c7b, type: 3}
-    description: arrow hits dirt/wall [4/4]
+    description: 'Arrow hits dirt/wall [4/4] '
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: 586b8e0f47891a644a62c4a5cd5496ad, type: 3}
-    description: arrow shot charge two
+    description: 'Shoot charge level 2 arrow '
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
@@ -141,7 +141,7 @@ MonoBehaviour:
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 8300000, guid: 8ad8eee5631380f48824a8c05fa8d7a5, type: 3}
-    description: quick/spread shot charge 2, use with 28
+    description: 
   - clip: {fileID: 0}
     description: 
   - clip: {fileID: 0}
